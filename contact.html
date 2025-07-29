@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>문의하기 | Julieta</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | Julieta</title>
+  <link rel="stylesheet" href="css/style.css" />
   <script src="js/nav.js" defer></script>
 </head>
 <body>
@@ -19,29 +19,33 @@
   </nav>
 
   <section class="contact-page">
-    <h2>문의하기</h2>
-    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
-      <label>문의 유형
-        <select name="type" required>
-          <option value="product">상품 문의</option>
-          <option value="partnership">제휴 문의</option>
-          <option value="etc">기타</option>
+    <h2>Contact Us</h2>
+        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
+        <label for="type">Inquiry Type</label>
+        <select name="type" id="type" required title="Please select your inquiry type.">
+            <option value="product">Product Inquiry</option>
+            <option value="partnership">Partnership</option>
+            <option value="etc">Others</option>
         </select>
-      </label>
 
-      <input type="text" name="subject" placeholder="문의 제목" required>
-      <input type="email" name="email" placeholder="이메일" required>
-      <input type="text" name="phone" placeholder="휴대폰">
-      <input type="text" name="name" placeholder="작성자" required>
-      <textarea name="message" placeholder="문의 내용을 입력해주세요" required></textarea>
+        <input type="text" name="subject" placeholder="Subject" required title="Please enter the subject." />
+        <input type="email" name="email" placeholder="Email" required title="Please enter a valid email address." />
+        <input type="text" name="phone" placeholder="Phone (optional)" title="Enter your phone number (optional)." />
+        <input type="text" name="name" placeholder="Your Name" required title="Please enter your name." />
+        <textarea name="message" placeholder="Your message here..." required title="Please enter your message."></textarea>
 
-      <label class="agree">
-        <input type="checkbox" required>
-        개인정보 수집 및 이용에 동의합니다.
-      </label>
+        <div class="agree">
+            <label>
+            <input type="checkbox" id="consent" required title="You must agree to proceed." />
+            I agree to the collection and use of my personal information.
+            </label>
+            <small>
+            Your personal information (name, email, phone number, etc.) will be used solely to respond to your inquiry and will be deleted within 1 year. You may refuse to consent, but this may limit form submission.
+            </small>
+        </div>
 
-      <button type="submit">등록</button>
-    </form>
+        <button type="submit">Submit</button>
+        </form>
   </section>
 
   <footer>
