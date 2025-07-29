@@ -1,30 +1,59 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Julieta Coming Soon</title>
-  <style>
-    body {
-      background-color: #f7f7f7;
-      color: #333;
-      font-family: sans-serif;
-      text-align: center;
-      padding: 10%;
-    }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-    p {
-      font-size: 1.2rem;
-      color: #555;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Julieta</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/nav.js" defer></script>
 </head>
 <body>
-  <h1>Julieta</h1>
-  <p>홈페이지 준비 중입니다. 곧 찾아뵙겠습니다! www.julieta.co.kr</p>
+  <nav class="navbar">
+    <div class="nav-logo">Julieta</div>
+    <button class="nav-toggle">☰</button>
+        <ul class="nav-menu">
+            <li><a href="#about">About</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+  </nav>
+
+  <header class="hero">
+    <img src="images/banner.png" alt="Main Banner">
+    <div class="hero-text">
+      <h1>Julieta</h1>
+      <p>당신의 피부를 위한 최적의 솔루션</p>
+    </div>
+  </header>
+
+  <section id="about" class="about">
+    <h2>About Us</h2>
+    <p>Julieta는 과학과 자연을 바탕으로 피부의 본질을 회복하는 것을 목표로 합니다.</p>
+  </section>
+
+  <section id="products" class="products">
+    <h2>Products</h2>
+    <div class="product-grid">
+      <div class="product">
+        <img src="images/product01.png" alt="제품1" class="zoom-image">
+        <p>Hydrating Essence</p>
+      </div>
+      <div class="product">
+        <img src="images/product02.png" alt="제품2" class="zoom-image">
+        <p>Repair Cream</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <img src="images/contact.jpg" alt="Contact Banner">
+    <p>Email: contact@julieta.co.kr</p>
+    <p>Tel: 02-123-4567</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Julieta Co., Ltd. All rights reserved.</p>
+  </footer>
 </body>
 </html>

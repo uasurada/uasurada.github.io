@@ -1,0 +1,193 @@
+/* 기본 설정 */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 내비게이션 */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+  margin: 0;
+}
+.nav-menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+.nav-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  text-align: center;
+}
+.hero img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+}
+.hero-text {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  max-width: 90%;
+  text-align: center;
+}
+
+/* 공통 섹션 스타일 */
+section {
+  padding: 4rem 2rem;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 제품 그리드 */
+.product-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+.product {
+  text-align: center;
+}
+.product img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* 확대 애니메이션 공통 (데스크탑 기본 적용) */
+.zoom-image {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+}
+.zoom-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Contact 단독 페이지 */
+.contact-page {
+  padding: 5rem 2rem;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.contact-form button {
+  background: #333;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.contact-form button:hover {
+  background: #555;
+}
+.contact-form label {
+  text-align: left;
+  font-size: 0.95rem;
+  color: #333;
+}
+.agree {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* 푸터 */
+footer {
+  background: #f7f7f7;
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* 반응형 대응 */
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+  }
+  .nav-menu.active {
+    display: flex;
+  }
+  .nav-toggle {
+    display: block;
+  }
+  .product-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-text {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  /* 모바일에서는 확대 효과 제거 */
+  .zoom-image:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>문의하기 | Julieta</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/nav.js" defer></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-logo">Julieta</div>
+    <button class="nav-toggle">☰</button>
+    <ul class="nav-menu">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="contact-page">
+    <h2>문의하기</h2>
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
+      <label>문의 유형
+        <select name="type" required>
+          <option value="product">상품 문의</option>
+          <option value="partnership">제휴 문의</option>
+          <option value="etc">기타</option>
+        </select>
+      </label>
+
+      <input type="text" name="subject" placeholder="문의 제목" required>
+      <input type="email" name="email" placeholder="이메일" required>
+      <input type="text" name="phone" placeholder="휴대폰">
+      <input type="text" name="name" placeholder="작성자" required>
+      <textarea name="message" placeholder="문의 내용을 입력해주세요" required></textarea>
+
+      <label class="agree">
+        <input type="checkbox" required>
+        개인정보 수집 및 이용에 동의합니다.
+      </label>
+
+      <button type="submit">등록</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Julieta Co., Ltd. All rights reserved.</p>
+  </footer>
+</body>
+</html>
