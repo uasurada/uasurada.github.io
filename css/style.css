@@ -59,7 +59,7 @@ body.menu-open { overflow: hidden; }
   .hero{ height: clamp(420px, 60vh, 640px); }
   .hero img{
     /* 왼쪽 문구가 잘리지 않도록 중앙보다 왼쪽을 더 보여주기 */
-    object-position: 35% center; /* 30~45% 사이에서 취향에 맞게 조정 */
+    object-position: 15% center; /* 30~45% 사이에서 취향에 맞게 조정 */
   }
 }
 
