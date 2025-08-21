@@ -54,6 +54,11 @@ body.menu-open { overflow: hidden; }
   object-position: 60% center;  /* 기존 60% 추천 */
 }
 
+/* 화면 비율이 '세로형'에 가까울 때(가로가 좁은 모니터/창)도 보정 */
+@media (max-aspect-ratio: 4/3) {      /* 4:3보다 세로형이면 더 왼쪽을 보여줌 */
+  .hero img { object-position: 35% center; }
+}
+
 /* 모바일일 때 배너 높이 & 포커스 조정 */
 @media (max-width: 768px){
   .hero{ height: clamp(420px, 60vh, 640px); }
