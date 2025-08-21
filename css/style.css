@@ -36,13 +36,41 @@ body.menu-open { overflow: hidden; }
 }
 .nav-toggle { display: none; font-size: 1.5rem; background: none; border: 0; cursor: pointer; }
 
-/* Hero (메인 배너) — 잘림 위치 튜닝 */
-.hero { position: relative; width: 100%; height: clamp(460px, 66vh, 760px); overflow: hidden; background: #f7f7f7; }
-.hero img { width: 100%; height: 100%; object-fit: cover; object-position: 60% center; } /* 오른쪽 제품 강조 */
-@media (max-width: 768px) {
-  .hero { height: clamp(380px, 54vh, 620px); }
-  .hero img { object-position: center; }
+
+
+/* 데스크탑 기본 */
+.hero{
+  position: relative;
+  width: 100%;
+  height: clamp(460px, 66vh, 760px);
+  overflow: hidden;
+  background: #f7f7f7;
 }
+.hero img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 제품 박스가 오른쪽에 있으므로 오른쪽을 조금 더 보여주기 */
+  object-position: 60% center;  /* 기존 60% 추천 */
+}
+
+/* 모바일일 때 배너 높이 & 포커스 조정 */
+@media (max-width: 768px){
+  .hero{ height: clamp(420px, 60vh, 640px); }
+  .hero img{
+    /* 왼쪽 문구가 잘리지 않도록 중앙보다 왼쪽을 더 보여주기 */
+    object-position: 35% center; /* 30~45% 사이에서 취향에 맞게 조정 */
+  }
+}
+
+/* 울트라 세로(아이폰 미니/일부 안드) */
+@media (max-width: 420px){
+  .hero{ height: clamp(380px, 58vh, 560px); }
+  .hero img{ object-position: 30% center; }
+}
+
+
+
 
 /* Section Banner */
 .section-banner { position: relative; width: 100%; aspect-ratio: 16 / 5; display: grid; place-items: center; overflow: hidden; background: #f7f7f7; }
