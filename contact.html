@@ -1,55 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page="contact">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact | Julieta</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <script src="js/nav.js" defer></script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/include.js" defer></script>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="nav-logo">Julieta</div>
-    <button class="nav-toggle">☰</button>
-    <ul class="nav-menu">
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="index.html#products">Products</a></li>
-      <li><a href="contact.html" class="active">Contact</a></li>
-    </ul>
-  </nav>
+  <div data-include="header"></div>
 
-  <section class="contact-page">
-    <h2>Contact Us</h2>
-        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
+  <div class="section-banner">
+    <img src="images/cantact-us-banner.jpg" alt="Contact banner">
+  </div>
+
+  <main class="container">
+    <section class="contact-wrap">
+      <h2 class="reveal">Contact Us</h2>
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form" novalidate>
         <label for="type">Inquiry Type</label>
-        <select name="type" id="type" required title="Please select your inquiry type.">
-            <option value="product">Product Inquiry</option>
-            <option value="partnership">Partnership</option>
-            <option value="etc">Others</option>
+        <select id="type" name="type" required title="Please select your inquiry type.">
+          <option value="product">Product Inquiry</option>
+          <option value="partnership">Partnership</option>
+          <option value="etc">Others</option>
         </select>
 
-        <input type="text" name="subject" placeholder="Subject" required title="Please enter the subject." />
-        <input type="email" name="email" placeholder="Email" required title="Please enter a valid email address." />
-        <input type="text" name="phone" placeholder="Phone (optional)" title="Enter your phone number (optional)." />
-        <input type="text" name="name" placeholder="Your Name" required title="Please enter your name." />
+        <input type="text" name="subject" placeholder="Subject" required title="Please enter the subject.">
+        <input type="email" name="email" placeholder="Email" required title="Please enter a valid email address.">
+        <input type="text" name="phone" placeholder="Phone (optional)" title="Enter your phone number (optional).">
+        <input type="text" name="name" placeholder="Your Name" required title="Please enter your name.">
         <textarea name="message" placeholder="Your message here..." required title="Please enter your message."></textarea>
 
         <div class="agree">
-            <label>
-            <input type="checkbox" id="consent" required title="You must agree to proceed." />
+          <label>
+            <input type="checkbox" id="consent" required title="You must agree to proceed.">
             I agree to the collection and use of my personal information.
-            </label>
-            <small>
-            Your personal information (name, email, phone number, etc.) will be used solely to respond to your inquiry and will be deleted within 1 year. You may refuse to consent, but this may limit form submission.
-            </small>
+          </label>
+          <small>
+            Your personal information will be used only to respond to your inquiry and will be deleted within 1 year.
+            You may refuse to consent, but this may limit form submission.
+          </small>
         </div>
 
-        <button type="submit">Submit</button>
-        </form>
-  </section>
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </section>
+  </main>
 
-  <footer>
-    <p>&copy; 2025 Julieta Co., Ltd. All rights reserved.</p>
-  </footer>
+  <div data-include="footer"></div>
 </body>
 </html>

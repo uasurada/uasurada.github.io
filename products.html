@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-page="products">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Products | Julieta</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/include.js" defer></script>
+</head>
+<body>
+  <div data-include="header"></div>
+
+  <div class="section-banner">
+    <img src="images/products-banner.jpg" alt="Products banner">
+  </div>
+
+  <main class="container">
+    <section>
+      <h2 class="reveal">Our Products</h2>
+      <p class="lead reveal">Minimal, premium, and designed for refined results.</p>
+
+      <div class="grid cols-2">
+        <div class="card reveal">
+          <img src="images/product01_M.png" alt="Julieta M">
+          <div class="card-body">
+            <p class="title product-title">Julieta M</p>
+            <p class="sub">Refined balance and natural volume.</p>
+            <button class="btn" data-modal-src="images/products-m-page.jpg" data-modal-title="Julieta M">View Detail</button>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <img src="images/product02_H.png" alt="Julieta H">
+          <div class="card-body">
+            <p class="title product-title">Julieta H</p>
+            <p class="sub">High viscosity with stability.</p>
+            <button class="btn" data-modal-src="images/products-h-page.jpg" data-modal-title="Julieta H">View Detail</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="productModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <strong class="modal-title">Product</strong>
+        <button class="modal-close" aria-label="Close">✕</button>
+      </div>
+      <img src="" alt="Product detail">
+    </div>
+  </div>
+
+  <div data-include="footer"></div>
+</body>
+</html>
