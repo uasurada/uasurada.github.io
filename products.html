@@ -1,40 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" data-page="products">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Products | Julieta</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
   <script src="js/include.js" defer></script>
 </head>
 <body>
   <div data-include="header"></div>
 
   <div class="section-banner">
-    <img src="images/products-banner.jpg" alt="Products banner">
+    <picture>
+      <source srcset="images/mobile-products-banner.jpg" media="(max-width: 768px)">
+      <img src="images/products-banner.jpg" alt="Products banner">
+    </picture>
   </div>
 
   <main class="container">
     <section>
       <h2 class="reveal">Our Products</h2>
-      <p class="lead reveal">Minimal, premium, and designed for refined results.</p>
+      <!--p class="lead reveal">Minimal, premium, and designed for refined results.</p-->
 
       <div class="grid cols-2">
         <div class="card reveal">
-          <img src="images/product01_M.png" alt="Julieta M">
+          <img src="images/product01_M.png" alt="Julieta M" class="zoom-image">
           <div class="card-body">
-            <p class="title product-title">Julieta M</p>
-            <p class="sub">Refined balance and natural volume.</p>
-            <button class="btn" data-modal-src="images/products-m-page.jpg" data-modal-title="Julieta M">View Detail</button>
+            <p class="title product-name">Julieta M</p>
+            <!--p class="sub">Refined balance and natural volume.</p-->
+            <button
+              class="btn"
+              data-modal-title="Julieta M"
+              data-modal-src-desktop="images/products-m-detail-page.jpg"
+              data-modal-src-mobile="images/mobile-products-m-detail-page.jpg"
+            >View Detail</button>
           </div>
         </div>
 
         <div class="card reveal">
-          <img src="images/product02_H.png" alt="Julieta H">
+          <img src="images/product02_H.png" alt="Julieta H" class="zoom-image">
           <div class="card-body">
-            <p class="title product-title">Julieta H</p>
-            <p class="sub">High viscosity with stability.</p>
-            <button class="btn" data-modal-src="images/products-h-page.jpg" data-modal-title="Julieta H">View Detail</button>
+            <p class="title product-name">Julieta H</p>
+            <!--p class="sub">High viscosity with stability.</p-->
+            <button
+              class="btn"
+              data-modal-title="Julieta H"
+              data-modal-src-desktop="images/products-h-detail-page.jpg"
+              data-modal-src-mobile="images/mobile-products-h-detail-page.jpg"
+            >View Detail</button>
           </div>
         </div>
       </div>
@@ -42,10 +55,10 @@
   </main>
 
   <!-- Modal -->
-  <div class="modal" id="productModal">
-    <div class="modal-card">
-      <div class="modal-head">
-        <strong class="modal-title">Product</strong>
+  <div class="modal" id="productModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head" data-modal-drag-handle>
+        <strong class="modal-title" id="modalTitle">Product</strong>
         <button class="modal-close" aria-label="Close">✕</button>
       </div>
       <img src="" alt="Product detail">

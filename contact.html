@@ -1,50 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" data-page="contact">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact | Julieta</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
   <script src="js/include.js" defer></script>
 </head>
 <body>
   <div data-include="header"></div>
 
   <div class="section-banner">
-    <img src="images/cantact-us-banner.jpg" alt="Contact banner">
+    <picture>
+      <source srcset="images/mobile-contact-us-banner.jpg" media="(max-width: 768px)">
+      <img src="images/contact-us-banner.jpg" alt="Contact banner">
+    </picture>
   </div>
 
-  <main class="container">
-    <section class="contact-wrap">
-      <h2 class="reveal">Contact Us</h2>
-      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form" novalidate>
-        <label for="type">Inquiry Type</label>
-        <select id="type" name="type" required title="Please select your inquiry type.">
-          <option value="product">Product Inquiry</option>
+  <main class="contact-page">
+    <h2>Contact Us</h2>
+
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form" novalidate>
+      <label>Inquiry Type
+        <select name="type" required>
+          <option value="product">Product</option>
           <option value="partnership">Partnership</option>
-          <option value="etc">Others</option>
+          <option value="etc">Other</option>
         </select>
+      </label>
 
-        <input type="text" name="subject" placeholder="Subject" required title="Please enter the subject.">
-        <input type="email" name="email" placeholder="Email" required title="Please enter a valid email address.">
-        <input type="text" name="phone" placeholder="Phone (optional)" title="Enter your phone number (optional).">
-        <input type="text" name="name" placeholder="Your Name" required title="Please enter your name.">
-        <textarea name="message" placeholder="Your message here..." required title="Please enter your message."></textarea>
+      <input type="text" name="subject" placeholder="Subject" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="phone" placeholder="Phone">
+      <input type="text" name="name" placeholder="Name" required>
+      <textarea name="message" placeholder="Your message" required></textarea>
 
-        <div class="agree">
-          <label>
-            <input type="checkbox" id="consent" required title="You must agree to proceed.">
-            I agree to the collection and use of my personal information.
-          </label>
-          <small>
-            Your personal information will be used only to respond to your inquiry and will be deleted within 1 year.
-            You may refuse to consent, but this may limit form submission.
-          </small>
-        </div>
+      <label class="agree">
+        <input type="checkbox" required>
+        I agree to the collection and use of personal information.
+      </label>
 
-        <button type="submit" class="btn">Submit</button>
-      </form>
-    </section>
+      <button type="submit">Submit</button>
+    </form>
   </main>
 
   <div data-include="footer"></div>
