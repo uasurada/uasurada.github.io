@@ -1,201 +1,170 @@
-// 간단한 HTML include 로더
-async function include(selector, url) {
-  const host = document.querySelector(selector);
-  if (!host) return;
-  const res = await fetch(url, { cache: "no-cache" });
-  host.innerHTML = await res.text();
-}
-
-// 현재 페이지 키 (활성 메뉴 강조)
-const pageKey = document.documentElement.getAttribute("data-page");
-
+// --- include header/footer ---
 (async () => {
-  // 파셜 주입
-  await include('[data-include="header"]', 'partials/header.html');
-  await include('[data-include="footer"]', 'partials/footer.html');
-
-  // 모바일 메뉴 토글 + 배경 스크롤 잠금
-  const t = document.querySelector('.nav-toggle');
-  const m = document.querySelector('.nav-menu');
-
-  const closeMenu = () => {
-    if (!m) return;
-    m.classList.remove('open');
-    document.body.classList.remove('menu-open');
-  };
-  const openMenu = () => {
-    if (!m) return;
-    m.classList.add('open');
-    document.body.classList.add('menu-open');
-  };
-
-  if (t && m){
-    t.addEventListener('click', () => {
-      m.classList.contains('open') ? closeMenu() : openMenu();
-    });
-    // 메뉴 항목 클릭 시 닫기
-    m.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  const chunks = document.querySelectorAll('[data-include]');
+  for (const el of chunks) {
+    const name = el.getAttribute('data-include');
+    const res = await fetch(`partials/${name}.html`);
+    el.innerHTML = await res.text();
   }
 
-  // 활성 메뉴 표시
-  if (pageKey) {
-    document.querySelectorAll('[data-nav] a').forEach(a => {
-      if (a.dataset.navkey === pageKey) a.classList.add('active');
-    });
-  }
-
-  // 스크롤 리빌
-  const io = new IntersectionObserver(es => {
-    es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: .15 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // 제품 모달 (Products 페이지에서만 동작)
-  document.addEventListener('click', e => {
-    const btn = e.target.closest('[data-modal-src]');
-    if (btn) {
-      const src = btn.getAttribute('data-modal-src');
-      const title = btn.getAttribute('data-modal-title') || '';
-      const modal = document.querySelector('#productModal');
-      if (modal) {
-        modal.querySelector('img').src = src;
-        modal.querySelector('.modal-title').textContent = title;
-        modal.classList.add('active');
-      }
-    }
-    if (e.target.matches('.modal, .modal-close')) {
-      const box = e.target.closest('.modal');
-      if (box) box.classList.remove('active');
-    }
-  });
+  // after include: init nav, active link, smooth scroll, modal, reveal
+  initNav();
+  setActiveLink();
+  initSmoothScroll();
+  initProductModal();
+  initReveal();
 })();
 
-// ====== 제품 모달 (개선: ESC / 뒤로가기 / 스와이프-다운 / 스크롤잠금 + PointerEvents 보강) ======
-(() => {
+// --- nav (mobile toggle + logo link stays solid) ---
+function initNav(){
+  const toggle = document.querySelector('.nav-toggle');
+  const menu = document.querySelector('.nav-menu');
+
+  if (!toggle || !menu) return;
+
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('show');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  // 메뉴 클릭 후 자동 닫힘
+  menu.addEventListener('click', e => {
+    if (e.target.matches('a')) menu.classList.remove('show');
+  });
+}
+
+// --- active menu ---
+function setActiveLink(){
+  const page = document.documentElement.getAttribute('data-page') || '';
+  const map = { home:'index.html', about:'about.html', products:'products.html', technology:'technology.html', contact:'contact.html' };
+  const currentHref = map[page];
+
+  document.querySelectorAll('.nav-menu a').forEach(a => {
+    if (a.getAttribute('href') === currentHref) a.classList.add('active');
+  });
+}
+
+// --- smooth scroll for same-page anchors (if any) ---
+function initSmoothScroll(){
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    e.preventDefault();
+    const id = a.getAttribute('href');
+    const el = document.querySelector(id);
+    if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+}
+
+// --- Intersection reveal ---
+function initReveal(){
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(x => x.classList.add('show')); return;
+  }
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(en => { if (en.isIntersecting){ en.target.classList.add('show'); io.unobserve(en.target); }});
+  }, {threshold: .15});
+  els.forEach(x => io.observe(x));
+}
+
+// --- Product Modal (sheet, mql-aware images, esc/close/back/drag) ---
+function initProductModal(){
   const modal = document.querySelector('#productModal');
   if (!modal) return;
 
-  const card    = modal.querySelector('.modal-card');
-  const imgEl   = modal.querySelector('img');
-  const titleEl = modal.querySelector('.modal-title');
-  const header  = modal.querySelector('.modal-head'); // 드래그 핸들 지정
+  const card   = modal.querySelector('.modal-card');
+  const imgEl  = modal.querySelector('img');
+  const titleEl= modal.querySelector('.modal-title');
+  const header = modal.querySelector('[data-modal-drag-handle]');
+  const closeBtn = modal.querySelector('.modal-close'); // ← 추가
+  const mql    = window.matchMedia('(max-width: 768px)');
 
-  const openModal = (src, title='') => {
+  const pickSrc = (btn) =>
+    mql.matches ? (btn.dataset.modalSrcMobile || btn.dataset.modalSrcDesktop)
+                : (btn.dataset.modalSrcDesktop || btn.dataset.modalSrcMobile);
+
+  const open = (src, title='') => {
     imgEl.src = src;
     titleEl.textContent = title;
     modal.classList.add('active');
+    modal.setAttribute('aria-hidden','false');
     document.body.classList.add('modal-open');
-
-    try { history.pushState({ __julietaModal: true }, ""); } catch(_) {}
+    try{ history.pushState({__j_modal:true}, ''); }catch{}
   };
 
-  const closeModal = (fromPop=false) => {
+  const close = (fromPop=false) => {
     modal.classList.remove('active');
+    modal.setAttribute('aria-hidden','true');
     document.body.classList.remove('modal-open');
-    imgEl.src = "";
-
-    if (!fromPop && history.state && history.state.__julietaModal) {
-      try { history.back(); } catch(_) {}
-    }
-
-    card.style.transition = 'transform .2s';
-    card.style.transform = 'translateY(0)';
-    modal.style.background = 'rgba(0,0,0,.5)';
+    imgEl.src = '';
+    if (!fromPop && history.state && history.state.__j_modal){ try{ history.back(); }catch{} }
+    card.style.transition = 'transform .2s'; card.style.transform = 'translateY(0)';
+    modal.style.background = 'rgba(0,0,0,.45)';
   };
 
-  // 버튼 클릭 → 모달 오픈
+  // open buttons
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-modal-src]');
+    const btn = e.target.closest('[data-modal-src-desktop], [data-modal-src-mobile]');
     if (!btn) return;
-    const src = btn.getAttribute('data-modal-src');
-    const title = btn.getAttribute('data-modal-title') || '';
-    openModal(src, title);
+    open(pickSrc(btn), btn.dataset.modalTitle || '');
   });
 
-  // 배경 클릭 또는 X 버튼(내부 아이콘 포함) 클릭 → 닫기
-  modal.addEventListener('click', (e) => {
-  // 배경(오버레이) 클릭
-   if (e.target === modal) return closeModal();
-
-// .modal-close 자체 또는 그 안의 아이콘/요소를 클릭한 경우
-   const closeBtn = e.target.closest('.modal-close');
+  // X 버튼 직접 닫기 (드래그 핸들 이벤트와 충돌 방지)
    if (closeBtn) {
+    closeBtn.addEventListener('pointerdown', (e) => e.stopPropagation()); // 추가
+    closeBtn.addEventListener('click', (e) => {
      e.stopPropagation();
-     return closeModal();
+     close();
+    });
    }
+  
+  // close by bg or X
+  modal.addEventListener('click', (e) => {
+    if (e.target.matches('.modal, .modal-close')) close();
   });
 
-  // ESC 닫기
+  // ESC
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+    if (e.key === 'Escape' && modal.classList.contains('active')) close();
   });
 
-  // 뒤로가기 닫기
+  // Back button
   window.addEventListener('popstate', () => {
-    if (modal.classList.contains('active')) closeModal(true);
+    if (modal.classList.contains('active')) close(true);
   });
 
-  // --- Pointer Events 기반 스와이프-다운 (헤더에서만 드래그 허용) ---
-  let startY = 0, dy = 0, dragging = false;
-  let activePointerId = null;
-  const THRESHOLD = 120;
-  const START_GAP = 8;
+  // Drag down to close (pointer events, header only)
+  let startY=0, dy=0, dragging=false, pid=null;
+  const threshold = 120;
 
-  const onPointerDown = (e) => {
-    // X 버튼 위에서 시작한 포인터는 드래그로 취급하지 않음
+  const onDown = (e) => {
+
+      // 닫기(X) 버튼 위에서 누른 경우 드래그 시작 금지
     if (e.target.closest('.modal-close')) return;
 
-    // 좌클릭만 허용
     if (e.pointerType === 'mouse' && e.button !== 0) return;
-
-    activePointerId = e.pointerId;
-    header.setPointerCapture(activePointerId);
-
-    startY = e.clientY;
-    dy = 0;
-    dragging = false;
-
-    // 드래그 중에는 애니메이션 제거
+    dragging = true; pid = e.pointerId; startY = e.clientY; dy = 0;
+    header.setPointerCapture && header.setPointerCapture(pid);
     card.style.transition = 'none';
-    };
-
-  const onPointerMove = (e) => {
-    if (activePointerId !== e.pointerId) return;
-    dy = e.clientY - startY;
-    const down = Math.max(0, dy);
-
-    if (!dragging && down > START_GAP) dragging = true;
-
-    if (dragging) {
-      card.style.transform = `translateY(${down}px)`;
-      const alpha = Math.max(0.15, 0.5 - down / 600);
-      modal.style.background = `rgba(0,0,0,${alpha})`;
-      e.preventDefault();
-    }
   };
-
-  const onPointerUp = (e) => {
-    if (activePointerId !== e.pointerId) return;
-    header.releasePointerCapture(activePointerId);
-    activePointerId = null;
-
+  const onMove = (e) => {
+    if (!dragging || (pid!=null && e.pointerId!==pid)) return;
+    dy = Math.max(0, e.clientY - startY);
+    card.style.transform = `translateY(${dy}px)`;
+    const alpha = Math.max(0.15, 0.45 - dy/600);
+    modal.style.background = `rgba(0,0,0,${alpha})`;
+  };
+  const onUp = (e) => {
+    if (!dragging || (pid!=null && e.pointerId!==pid)) return;
+    dragging = false; pid = null;
     card.style.transition = 'transform .2s';
-
-    if (dragging && dy > THRESHOLD) {
-      closeModal();
-    } else {
-      card.style.transform = 'translateY(0)';
-      modal.style.background = 'rgba(0,0,0,.5)';
-    }
-    dragging = false;
-    dy = 0;
+    if (dy > threshold) close();
+    else { card.style.transform = 'translateY(0)'; modal.style.background = 'rgba(0,0,0,.45)'; }
   };
 
-  
-  // 바인딩 (헤더만 핸들)
-  header.addEventListener('pointerdown', onPointerDown);
-  header.addEventListener('pointermove', onPointerMove);
-  header.addEventListener('pointerup', onPointerUp);
-  header.addEventListener('pointercancel', onPointerUp);
-})();
-
+  header.addEventListener('pointerdown', onDown);
+  header.addEventListener('pointermove', onMove);
+  header.addEventListener('pointerup', onUp);
+  header.addEventListener('pointercancel', onUp);
+}
