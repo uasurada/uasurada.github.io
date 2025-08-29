@@ -202,3 +202,15 @@ function autoOpenProductDetailFromQuery(){
   modal.setAttribute('aria-hidden','false');
   document.body.classList.add('modal-open');
 }
+
+// --- Disable right-click context menu ---
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+}, false);
+
+// --- (선택) 특정 키 조합도 막을 수 있음 (예: Ctrl+U, Ctrl+C) ---
+document.addEventListener('keydown', function(e) {
+  if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 'c' || e.key === 'C')) {
+    e.preventDefault();
+  }
+});

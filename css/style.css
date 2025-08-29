@@ -1,45 +1,82 @@
-/* =========================================================
+/* ============================================================
    Julieta - Global Styles (FULL)
-   - Fixed navbar
-   - Section anchors / modal / responsive tweaks
-   ========================================================= */
+   - Base / Layout / Navbar / Banners
+   - About (cover + split), Products (cards)
+   - Modal, Reveal, Utilities
+   - Copy-protection (text-select off, image-drag off)
+   ============================================================ */
 
-/* Reset & base */
+/* ---------- Reset & base ---------- */
 * { box-sizing: border-box; }
 html, body { margin:0; padding:0; }
 :root{
-  /* 헤더 높이(px) – 실제 높이에 맞게 조절 */
-  --nav-h: 64px;
+  --nav-h: 64px;           /* 고정 네비 높이 */
+  --brand-dark:#111;
+  --text:#333;
+  --muted:#666;
+  --border:#eaeaea;
 }
 body{
   font-family: "Segoe UI", system-ui, Helvetica, Arial, sans-serif;
-  color:#333; background:#fff; line-height:1.6;
+  color:var(--text);
+  background:#fff;
+  line-height:1.6;
 
-  /* 고정 헤더 아래로 본문 밀기 */
-  padding-top: var(--nav-h);
+  /* 전체 텍스트 선택 방지 (입력 필드는 예외 처리 아래 있음) */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-/* Container */
-.container { max-width: 1200px; margin: 0 auto; padding: 2rem 1.25rem; }
+/* 입력 필드/에디터/선택 허용이 필요한 곳은 다시 허용 */
+input, textarea, select, [contenteditable="true"], .allow-select *{
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
 
-/* =========================================================
-   Navbar (fixed)
-   ========================================================= */
+/* 이미지 드래그 방지 */
+img { -webkit-user-drag: none; user-drag: none; }
+
+/* ---------- Generic containers ---------- */
+.container{ max-width:1200px; margin:0 auto; padding:2rem 1.25rem; }
+.section{ padding:3rem 0; }
+.section + .section{ padding-top:2rem; }
+
+/* 제목/서브텍스트 공통 */
+.section-title{
+  font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2rem);
+  color:var(--brand-dark);
+  margin:.25rem 0 1rem;
+  font-weight:800;
+}
+.section-sub{
+  color:#555;
+  margin:0 0 1.25rem;
+}
+
+/* ---------- Navbar (sticky) ---------- */
 .navbar{
-  position: fixed; top:0; left:0; right:0; z-index:1100;
+  position:sticky; top:0; z-index:1000;
   display:flex; align-items:center; justify-content:space-between;
-  gap:1rem; padding:1rem 1.25rem; background:#fff;
+  height:var(--nav-h);
+  padding:0 1.25rem; background:#fff;
   box-shadow:0 2px 5px rgba(0,0,0,.08);
 }
-.nav-logo{ font-size:1.6rem; font-weight:800; color:#111; text-decoration:none; }
+.nav-logo{ font-size:2rem; font-weight:800; color:#111; text-decoration:none; }
 .nav-menu{ display:flex; list-style:none; gap:1.25rem; margin:0; padding:0; }
-.nav-menu a{ text-decoration:none; color:#333; font-weight:500; padding:.25rem .2rem; }
-/* 활성 표시를 라인/색 없이 통일 */
-.nav-menu a.active{ border-bottom:none; color:inherit; font-weight:inherit; }
+.nav-menu a{
+  text-decoration:none; color:#333; font-weight:500;
+  padding:.25rem .2rem; position:relative;
+}
+/* 밑줄/라인 없이 활성 처리 */
+.nav-menu a.active{ color:#111; font-weight:700; }
 .nav-toggle{ display:none; background:none; border:0; font-size:1.6rem; cursor:pointer; }
 
-/* Mobile menu */
-@media (max-width: 768px){
+/* Mobile nav */
+@media (max-width:768px){
   .nav-toggle{ display:block; }
   .nav-menu{
     position:absolute; left:0; right:0; top:var(--nav-h);
@@ -49,95 +86,55 @@ body{
     padding:.75rem 1rem;
   }
   .nav-menu.show{ display:flex; }
-
-  .nav-menu a{
-    padding:.75rem .25rem;
-    text-decoration:none !important;
-    border:0 !important;
-    position:static !important;
-    transition:color .2s ease;
-  }
-  .nav-menu a::after{ content:none !important; display:none !important; }
-
-  .nav-menu a:hover,
-  .nav-menu a:focus{
-    color:#b8912c;
-    text-decoration:none !important;
-  }
-
-  .nav-menu a.active{
-    color:#b8912c;
-    font-weight:600;
-    text-decoration:none !important;
-  }
+  .nav-menu a{ padding:.75rem .25rem; text-decoration:none !important; }
 }
 
-/* =========================================================
-   Media - Hero & banners (이미지 전체 표시, 크롭X)
-   ========================================================= */
+/* ---------- Banners / Images (no crop) ---------- */
 .hero-picture img,
 .section-banner picture img,
-.content-picture img {
+.content-picture img{
   width:100%; height:auto; display:block;
 }
 
-/* Sections */
-h2{ font-size:1.75rem; margin:.25rem 0 1rem; }
-.lead{ color:#666; margin-bottom:2rem; }
-
+/* ---------- Grid helpers ---------- */
 .grid{ display:grid; gap:1.5rem; }
 .cols-3{ grid-template-columns:repeat(3,1fr); }
 .cols-2{ grid-template-columns:repeat(2,1fr); }
+@media (max-width:992px){ .cols-3{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:768px){ .cols-3, .cols-2{ grid-template-columns:1fr; } }
 
-@media (max-width: 992px){
-  .cols-3{ grid-template-columns:repeat(2,1fr); }
-}
-@media (max-width: 768px){
-  .cols-3, .cols-2{ grid-template-columns:1fr; }
-}
-
-/* Card */
+/* ---------- Cards / Buttons ---------- */
 .card{
   background:#fff; border:1px solid #eee; border-radius:14px;
-  box-shadow:0 8px 20px rgba(0,0,0,.06);
-  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,.06); overflow:hidden;
 }
-.card img{ width:100%; height:auto; display:block; }
 .card-body{ padding:1rem 1.25rem 1.5rem; }
-.card-body .title{ font-size:1.15rem; font-weight:700; margin:.5rem 0; }
-.card-body .sub{ color:#666; margin:.25rem 0 1rem; }
-
+.card--dense .card-body{ padding:1rem 1rem 1.1rem; }
 .btn{
   display:inline-block; border:0; cursor:pointer;
   background:#222; color:#fff; padding:.6rem 1.1rem;
-  border-radius:8px; font-weight:600;
+  border-radius:10px; font-weight:700;
 }
 .btn:hover{ background:#444; }
+.btn--lg{ padding:.8rem 1.25rem; font-size:1.05rem; }
+.btn--outline{ background:#fff; color:#222; border:1px solid #dedede; }
+.btn--outline:hover{ background:#f4f4f4; }
 
-/* Product name bump */
-.product-name{ font-size:1.35rem; }
-
-/* Zoom animation for images */
-.zoom-image{ transition:transform .3s ease, box-shadow .3s ease; border-radius:10px; }
-.zoom-image:hover{ transform:scale(1.05); box-shadow:0 6px 12px rgba(0,0,0,.15); }
-@media (max-width: 768px){ .zoom-image:hover{ transform:none; box-shadow:none; } }
-
-/* Contact page */
+/* ---------- Contact page ---------- */
 .contact-page{ max-width:720px; margin:2rem auto; padding:0 1.25rem; text-align:center; }
 .contact-form{ display:flex; flex-direction:column; gap:1rem; margin-top:1rem; }
 .contact-form input, .contact-form textarea, .contact-form select{
   width:100%; padding:.8rem; border:1px solid #ccc; border-radius:8px; font-size:1rem;
+  background:#fff;
 }
 .contact-form textarea{ min-height:160px; resize:vertical; }
 .contact-form label{ text-align:left; color:#333; font-weight:600; }
 .agree{ font-size:.95rem; color:#555; }
 
-/* Footer */
+/* ---------- Footer ---------- */
 footer{ background:#f7f7f7; padding:2rem 1.25rem; text-align:center; color:#666; }
 
-/* =========================================================
-   Modal (sheet)
-   ========================================================= */
+/* ---------- Modal (sheet) ---------- */
 .modal{
   position:fixed; inset:0; background:rgba(0,0,0,.45);
   display:none; align-items:flex-end; justify-content:center; padding:1rem;
@@ -160,216 +157,33 @@ footer{ background:#f7f7f7; padding:2rem 1.25rem; text-align:center; color:#666;
   border:0; background:#f4f4f4; width:34px; height:34px;
   border-radius:8px; cursor:pointer;
 }
-.modal img{ display:block; width:100%; height:auto; }
+.modal img{ display:block; width:100%; height:auto; aspect-ratio: 2011 / 2048; }
+@media (max-width:768px){ .modal img{ aspect-ratio: 1080 / 1039; } }
 body.modal-open{ overflow:hidden; }
 
-/* Reveal fade-up */
+/* ---------- Reveal (fade-up) ---------- */
 .reveal{ opacity:0; transform:translateY(10px); transition:all .5s ease; }
 .reveal.show{ opacity:1; transform:none; }
 
-/* =========================================================
-   Perf helpers & modal sizing
-   ========================================================= */
-img[loading="lazy"]{ content-visibility:auto; }
+/* ---------- One-page anchor offset ---------- */
+#home, #about, #technology, #products, #contact{ scroll-margin-top: calc(var(--nav-h) + 16px); }
 
-.modal img{
-  width:100%;
-  height:auto;
-  /* desktop product-detail aspect (close to 2011x2048) */
-  aspect-ratio: 2011 / 2048;
-}
-@media (max-width: 768px){
-  /* mobile product-detail aspect (1080x1039) */
-  .modal img{ aspect-ratio: 1080 / 1039; }
-}
+/* ============================================================
+   Hero (Cover) & About (Split)
+   ============================================================ */
 
-/* =========================================================
-   One-page-like bands & dense layout helpers
-   ========================================================= */
-.section{ padding: 3rem 0; }
-.section + .section{ padding-top: 2rem; }
-.section h2{ margin-top:.25rem; }
-
-.section-title{
-  font-size: clamp(1.75rem, 1.2rem + 1.5vw, 2.25rem);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  margin: 0 0 1rem;
-  font-weight: 800;
-  color:#111;
-}
-.section-sub{
-  color:#555; margin:0 0 2rem; font-size:1.05rem;
-}
-
-.band{
-  padding: 3.25rem 0;
-  background:#fff;
-}
-.band--alt{
-  background: linear-gradient(180deg, #fafafa 0%, #f4f4f4 100%);
-}
-.band--dark{
-  background:#161616; color:#eaeaea;
-}
-.band .section-title{ color: inherit; }
-.band--dark .section-sub{ color:#c9c9c9; }
-
-.cols-2-lg{
-  display:grid; grid-template-columns:1.2fr .8fr; gap:2rem; align-items:center;
-}
-@media (max-width: 992px){
-  .cols-2-lg{ grid-template-columns:1fr; }
-}
-
-.card--dense .card-body{ padding:1rem 1.25rem; }
-.card--dense .title{ font-size:1.25rem; margin:.4rem 0 .5rem; }
-.card--dense .sub{ margin:0 0 .75rem; color:#666; }
-.btn--lg{ padding:.8rem 1.3rem; font-size:1.05rem; border-radius:10px; }
-
-.hr{
-  height:1px; background:linear-gradient(90deg, transparent, #ddd, transparent);
-  margin:2.25rem 0;
-}
-
-.hero{ box-shadow: 0 1px 0 rgba(0,0,0,.06); }
-
-.products-grid{
-  display:grid; gap:1.25rem; grid-template-columns:repeat(2, 1fr);
-}
-@media (max-width: 768px){
-  .products-grid{ grid-template-columns:1fr; }
-}
-
-.rounded{ border-radius:14px; overflow:hidden; }
-.shadow{ box-shadow: 0 10px 28px rgba(0,0,0,.08); }
-
-/* 앵커가 있다면 헤더에 가리지 않도록 (페이지 전환 구조이지만 안전용) */
-#home, #about, #technology, #products, #contact{
-  scroll-margin-top: calc(var(--nav-h) + 12px);
-}
-
-/* ===== Full-viewport Hero ===== */
-:root{
-  /* 이미 있으나, 숫자가 다르면 네비 실제 높이에 맞춰 주세요 */
-  --nav-h: 64px;
-}
-
-/* 화면 한 뷰포트에 딱 맞는 히어로 섹션 (네비 높이 차감) */
-.hero{
-  height: calc(100vh - var(--nav-h));
-  min-height: 520px;               /* 너무 낮아지는 모바일 대비(원하면 조정/삭제) */
-  margin: 0;
-  padding: 0;
-  box-shadow: 0 1px 0 rgba(0,0,0,.06);
-}
-
-/* picture와 이미지가 hero 높이를 100% 채우도록 */
-.hero-picture{
-  display:block;
-  width:100%;
-  height:100%;
-}
-.hero-picture img{
-  width:100%;
-  height:100%;
-  object-fit: cover;               /* 꽉 채우고 남는 부분은 자연스럽게 크롭 */
-  object-position: center;         /* 크롭 기준 (필요 시 right/left 등으로 조정) */
-}
-
-/* PC에서 한 화면 꽉 채우기를 더 강하게 하고 싶다면(선택) */
-@media (min-width: 1200px){
-  .hero{ min-height: 680px; }
-}
-
-/* 히어로 바로 다음 섹션과 간격 정돈 (필요시) */
-.section, .band{ scroll-margin-top: calc(var(--nav-h) + 12px); }
-
-/* ===== About page: readability & density ===== */
-
-/* 본문 리드(첫 단락) – 가독성 강화 */
-.section-lead{
-  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.2rem); /* 약 17~19px */
-  line-height: 1.7;
-  color:#333;
-  margin: 0 0 1rem;
-}
-
-/* 2열 레이아웃: 좌 텍스트, 우 이미지 */
-.about-grid{
-  display:grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap: clamp(1.5rem, 1.2rem + 1.2vw, 2.5rem);
-  align-items: start;
-}
-@media (max-width: 992px){
-  .about-grid{ grid-template-columns:1fr; }
-}
-
-/* 텍스트 폭 제한: 60~75자 권장 */
-.about-text{
-  max-width: 640px;  /* 읽기 좋은 줄 길이 */
-}
-
-/* 본문 문단 */
-.about-text p{
-  font-size: 1.05rem;       /* 16~17px */
-  line-height: 1.75;
-  color:#444;
-  margin: 0 0 1rem;
-}
-
-/* CTA 그룹 */
-.about-cta{ margin-top: 1.25rem; }
-.btn--outline{
-  background:#fff;
-  color:#222;
-  border:1px solid #ddd;
-}
-.btn--outline:hover{
-  background:#f4f4f4;
-}
-
-/* 오른쪽 이미지 카드 */
-.about-image img{
-  display:block; width:100%; height:auto;
-}
-
-/* Philosophy feature cards */
-.features-grid{
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
-@media (max-width: 992px){
-  .features-grid{ grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 640px){
-  .features-grid{ grid-template-columns: 1fr; }
-}
-
-.feature-title{
-  font-size: 1.1rem;
-  margin: 0 0 .4rem;
-  font-weight: 750;
-  color:#111;
-}
-
-
-/* ===== Full-screen Cover Hero ===== */
+/* Full-screen cover hero with glass card */
 .hero--cover{
-  /* 고정 헤더 높이만큼 보정 */
   height: calc(100vh - var(--nav-h));
   min-height: 620px;
   position: relative;
   display:flex; align-items:center; justify-content:center;
   background: var(--cover) center/cover no-repeat;
-  isolation:isolate; /* overlay 분리 */
+  isolation:isolate;
 }
 .hero--cover::before{
   content:"";
   position:absolute; inset:0;
-  /* 상단은 살짝 밝고 하단으로 갈수록 어두운 그라데이션 → 텍스트 가독성 ↑ */
   background: linear-gradient(180deg, rgba(0,0,0,.08) 0%, rgba(0,0,0,.35) 100%);
   z-index:-1;
 }
@@ -379,56 +193,172 @@ img[loading="lazy"]{ content-visibility:auto; }
   padding: clamp(1.25rem, 1rem + 2vw, 2rem);
 }
 .glass{
-  /* 유리 카드 느낌(고급감 + 가독성) */
   background: rgba(255,255,255,.22);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 16px;
   box-shadow: 0 20px 60px rgba(0,0,0,.25);
   border: 1px solid rgba(255,255,255,.35);
-  color: #111;
+  color:#111;
 }
 .hero-title{
   font-size: clamp(2rem, 1.4rem + 2.2vw, 3rem);
   line-height:1.15; letter-spacing:-.01em; margin:0 0 .6rem; font-weight:800;
 }
 .hero-lead{
-  font-size: clamp(1.05rem, .95rem + .5vw, 1.2rem); /* 17~19px */
+  font-size: clamp(1.05rem, .95rem + .5vw, 1.2rem);
   line-height:1.75; color:#1a1a1a; margin:0 0 1rem;
 }
 .hero-cta{ margin-top:.5rem; display:flex; gap:.6rem; flex-wrap:wrap; }
 
-/* Outline button */
-.btn--outline{ background:#fff; color:#222; border:1px solid #dedede; }
-.btn--outline:hover{ background:#f4f4f4; }
-
-/* ===== Split Section ===== */
+/* About split section */
 .split{
   display:grid; grid-template-columns: 1.1fr .9fr;
   gap: clamp(1.25rem, 1rem + 1.2vw, 2rem);
   align-items:center;
 }
-@media (max-width: 992px){ .split{ grid-template-columns:1fr; } }
-.split-text{
-  max-width: 720px;
-}
+@media (max-width:992px){ .split{ grid-template-columns:1fr; } }
+.split-text{ max-width:720px; }
 .split-text .section-title{ margin-bottom:.5rem; }
 .split-text .section-lead{
   font-size: clamp(1.05rem, .95rem + .5vw, 1.2rem);
   line-height:1.75; color:#333; margin:0 0 1rem;
 }
-.split-media img{ display:block; width:100%; height:auto; }
 
-/* ===== Features grid ===== */
-.features-grid{
-  display:grid; gap:1rem;
-  grid-template-columns: repeat(3, 1fr);
+/* 이미지 카드 크게 보이도록 확대 + 드래그 방지 + 포커스 가능 */
+.split-media{
+  border-radius:16px; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,.15);
+  cursor: default;
 }
-@media (max-width: 992px){ .features-grid{ grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 640px){ .features-grid{ grid-template-columns: 1fr; } }
-.feature-title{
-  font-size:1.1rem; font-weight:750; margin:0 0 .4rem; color:#111;
+.split-media img{
+  display:block; width:100%; height:auto;
+  transform: scale(1.2);           /* 확대해서 선명하게 */
+  transform-origin:center;
 }
 
-/* 글 본문 기본 대비 살짝 업 */
-.band p{ color:#3b3b3b; }
+/* ============================================================
+   Products (renewal cards)
+   ============================================================ */
+.prod-grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 1.25rem;
+}
+@media (max-width:900px){ .prod-grid{ grid-template-columns:1fr; } }
+
+/* 카드 */
+.prod-card{
+  display:flex; flex-direction:column;
+  background:#fff; border:1px solid var(--border); border-radius:16px;
+  overflow:hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,.06);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.prod-card:hover{
+  transform: translateY(-4px);
+  border-color:#e6e6e6;
+  box-shadow: 0 18px 36px rgba(0,0,0,.12);
+}
+
+/* 상단 이미지: 3:2 비율, 살짝 확대 */
+.prod-media{
+  position:relative; width:100%;
+  aspect-ratio: 3 / 2;
+  background: linear-gradient(180deg, #fafafa, #f3f3f3);
+  cursor:pointer;                 /* 이미지 클릭 가능 */
+}
+.prod-media:focus{ outline:2px solid #c9a74a; outline-offset:2px; }
+.prod-media img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit: contain;
+  transform: scale(1.08);
+  transform-origin:center;
+  filter: drop-shadow(0 12px 14px rgba(0,0,0,.18));
+}
+.prod-media:hover img{ transform: scale(1.12); }
+
+.prod-body{ padding:1rem 1.1rem 1.25rem; }
+.prod-name{ font-size:1.2rem; font-weight:800; margin:.25rem 0 .35rem; color:#111; }
+.prod-copy{ color:#444; margin:0 0 .5rem; font-size:1.02rem; line-height:1.6; }
+.prod-bullets{ margin:.25rem 0 .9rem; padding-left:1rem; color:#555; font-size:.98rem; }
+.prod-bullets li{ margin:.25rem 0; }
+.prod-cta{ display:flex; gap:.5rem; }
+
+/* ============================================================
+   Bands / Variants
+   ============================================================ */
+.band{ padding:3rem 0; }
+.band--alt{ background:#fafafa; }
+.band--dark{ background:#111; color:#eee; }
+.band--dark .section-title{ color:#fff; }
+.band--dark .section-sub{ color:#ddd; }
+
+/* ============================================================
+   Misc utilities
+   ============================================================ */
+.lead{ color:#666; margin-bottom:2rem; }
+.zoom-image{ transition:transform .3s ease, box-shadow .3s ease; border-radius:10px; }
+.zoom-image:hover{ transform:scale(1.05); box-shadow:0 6px 12px rgba(0,0,0,.15); }
+@media (max-width:768px){ .zoom-image:hover{ transform:none; box-shadow:none; } }
+
+/* 제품 상세 모달 안의 이미지도 선택 불가/드래그 방지 유지 */
+.modal img{
+  -webkit-user-select: none; user-select: none;
+  -webkit-user-drag: none; user-drag: none;
+}
+
+
+/* ==============================
+   Fix: grid overflow / min width
+   ============================== */
+.grid { 
+  /* 카드·이미지가 칼럼 경계에서 잘리지 않도록 */
+  grid-template-columns: repeat(var(--cols, 1), minmax(0, 1fr)) !important;
+}
+.cols-2 { --cols: 2; }
+.cols-3 { --cols: 3; }
+@media (max-width: 992px){ .cols-3{ --cols: 2; } }
+@media (max-width: 768px){ .cols-3, .cols-2{ --cols: 1; } }
+
+/* ==============================
+   Fix: 카드 내부 이미지 크롭 방지
+   ============================== */
+.card img,
+.card--dense img,
+.split-media img {
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit: contain;     /* 잘림 없이 전체 보이게 */
+  object-position: center;
+}
+
+/* 카드 바깥으로 이미지가 살짝 나가는 브라우저에서 줄 잘림처럼 보일 수 있어
+   overflow를 기본 해제하고, 정말 필요한 카드에만 별도로 overflow: hidden을 쓰자. */
+.card,
+.card--dense {
+  overflow: visible;       /* 잘림 방지 */
+}
+
+/* ==============================
+   Fix: Technology 티저 영역(좌우 2컬럼) 이미지 높이 지정 해제
+   - 혹시 강제 높이가 들어가 있었다면 제거
+   ============================== */
+.split-media,
+.card--dense { height:auto; }
+
+/* ==============================
+   Fix: Hero 배너는 원본 비율 유지 (크롭 없이)
+   ============================== */
+.hero-picture img{
+  width:100% !important;
+  height:auto !important;
+  object-fit: contain !important;  /* 배너 전체 보이게 */
+  object-position:center;
+}
+
+/* ==============================
+   (선택) 가독성 보정: 큰 글씨가 카드 경계에 딱 붙어 보이지 않게 패딩 보정
+   ============================== */
+.card .card-body { padding: 1rem 1.25rem; }
