@@ -4,13 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Products | Julieta</title>
-  <meta name="description" content="Explore Julieta dermal filler line — M and H.">
+  <meta name="description" content="Explore Julieta dermal filler line — M and H." />
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/include.js" defer></script>
 </head>
 <body>
   <div data-include="header"></div>
 
+  <!-- Top banner -->
   <div class="section-banner">
     <picture>
       <source srcset="images/mobile-products-banner.jpg" media="(max-width: 768px)">
@@ -22,44 +23,71 @@
 
   <main class="container">
     <section>
-      <h2 class="section-title reveal">Our Products</h2>
-      <p class="section-sub reveal">Choose your Julieta line.</p>
+      <h1 class="section-title">Products</h1>
+      <p class="section-sub">Meet Julieta M and Julieta H.</p>
 
-      <div class="products-grid">
-        <!-- M -->
-        <article class="card card--dense reveal">
-          <img src="images/product01_M.png" alt="Julieta M package" width="500" height="500" class="zoom-image">
-          <div class="card-body">
-            <p class="title">Julieta M</p>
-            <p class="sub">Deep skin areas. Natural yet defined results.</p>
-            <button
-              class="btn btn--lg"
+      <!-- New product cards -->
+      <div class="prod-grid">
+        <!-- Julieta M -->
+        <article class="prod-card">
+          <div class="prod-media"
+              role="button" tabindex="0"
+              aria-label="Open detail: Julieta M"
               data-modal-title="Julieta M"
               data-modal-src-desktop="images/products-m-detail-page.jpg"
-              data-modal-src-mobile="images/mobile-products-m-detail-page.jpg"
-            >View Detail</button>
+              data-modal-src-mobile="images/mobile-products-m-detail-page.jpg">
+            <img src="images/product01_M.png" alt="Julieta M package">
+          </div>
+          <div class="prod-body">
+            <h3 class="prod-name">Julieta M</h3>
+            <p class="prod-copy">Deep skin areas. Natural yet defined results.</p>
+            <ul class="prod-bullets">
+              <li>Cross-linked HA 24 mg/mL</li>
+              <li>Cheekbone, marionette lines, mentum</li>
+            </ul>
+            <div class="prod-cta">
+              <button class="btn btn--lg"
+                data-modal-title="Julieta M"
+                data-modal-src-desktop="images/products-m-detail-page.jpg"
+                data-modal-src-mobile="images/mobile-products-m-detail-page.jpg">
+                View Detail
+              </button>
+            </div>
           </div>
         </article>
 
-        <!-- H -->
-        <article class="card card--dense reveal">
-          <img src="images/product02_H.png" alt="Julieta H package" width="500" height="500" class="zoom-image">
-          <div class="card-body">
-            <p class="title">Julieta H</p>
-            <p class="sub">Volume areas. High stability & viscosity.</p>
-            <button
-              class="btn btn--lg"
+        <!-- Julieta H -->
+        <article class="prod-card">
+          <div class="prod-media"
+              role="button" tabindex="0"
+              aria-label="Open detail: Julieta H"
               data-modal-title="Julieta H"
               data-modal-src-desktop="images/products-h-detail-page.jpg"
-              data-modal-src-mobile="images/mobile-products-h-detail-page.jpg"
-            >View Detail</button>
+              data-modal-src-mobile="images/mobile-products-h-detail-page.jpg">
+            <img src="images/product02_H.png" alt="Julieta H package">
+          </div>
+          <div class="prod-body">
+            <h3 class="prod-name">Julieta H</h3>
+            <p class="prod-copy">Volume areas. High stability &amp; viscosity.</p>
+            <ul class="prod-bullets">
+              <li>Cross-linked HA 24 mg/mL</li>
+              <li>Chest, butt, thigh</li>
+            </ul>
+            <div class="prod-cta">
+              <button class="btn btn--lg"
+                data-modal-title="Julieta H"
+                data-modal-src-desktop="images/products-h-detail-page.jpg"
+                data-modal-src-mobile="images/mobile-products-h-detail-page.jpg">
+                View Detail
+              </button>
+            </div>
           </div>
         </article>
       </div>
     </section>
   </main>
 
-  <!-- Modal -->
+  <!-- Modal (기존 include.js가 제어) -->
   <div class="modal" id="productModal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-head" data-modal-drag-handle>
@@ -69,6 +97,15 @@
       <img src="" alt="Product detail" width="2011" height="2048">
     </div>
   </div>
+
+  <!-- CTA band -->
+  <section class="band band--dark">
+    <div class="container" style="text-align:center">
+      <h2 class="section-title">Need more information?</h2>
+      <p class="section-sub">Get technical specs or partnership details.</p>
+      <a class="btn btn--lg" href="contact.html">Contact us</a>
+    </div>
+  </section>
 
   <div data-include="footer"></div>
 </body>

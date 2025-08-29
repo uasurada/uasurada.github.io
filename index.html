@@ -4,112 +4,135 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Julieta</title>
-  <meta name="description" content="Julieta — premium dermal fillers designed for refined, natural, and lasting results.">
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/include.js" defer></script>
 </head>
 <body>
+  <!-- Header -->
   <div data-include="header"></div>
 
-  <!-- HERO -->
-  <section class="hero section">
+  <!-- ===== Hero (배너 원형 유지: PC/Mobile 개별 이미지) ===== -->
+  <section class="hero">
     <picture class="hero-picture">
       <source srcset="images/mobile-banner.jpg" media="(max-width: 768px)">
-      <img src="images/banner.jpg"
-           alt="Julieta main banner"
-           width="2048" height="960" decoding="async" fetchpriority="high">
+      <img src="images/banner.jpg" alt="Julieta main banner">
     </picture>
   </section>
 
-  <main>
+  <!-- ===== Key Values (짧고 굵게 3포인트) ===== -->
+  <section class="container section">
+    <div class="grid cols-3 reveal">
+      <div class="card card--dense">
+        <div class="card-body">
+          <h3 class="section-title" style="font-size:1.25rem;margin:0 0 .35rem;">High-Purity HA</h3>
+          <p class="section-sub" style="margin:0;color:#444;">Injection-grade hyaluronic acid with top-grade raw materials.</p>
+        </div>
+      </div>
+      <div class="card card--dense">
+        <div class="card-body">
+          <h3 class="section-title" style="font-size:1.25rem;margin:0 0 .35rem;">Safety &amp; Reliability</h3>
+          <p class="section-sub" style="margin:0;color:#444;">Strict compliance with international quality standards.</p>
+        </div>
+      </div>
+      <div class="card card--dense">
+        <div class="card-body">
+          <h3 class="section-title" style="font-size:1.25rem;margin:0 0 .35rem;">Natural Results</h3>
+          <p class="section-sub" style="margin:0;color:#444;">Balanced rheology designed for smooth, refined outcomes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- 브랜드 소개 밴드 -->
-    <section class="band band--alt">
-      <div class="container cols-2-lg">
-        <div>
-          <h2 class="section-title reveal">The most refined choice</h2>
-          <p class="section-sub reveal">Premium dermal fillers designed for refined, natural, and lasting results.</p>
-          <div class="reveal">
-            <a class="btn btn--lg" href="about.html">About Julieta</a>
+  <!-- ===== Featured Products (가로형 2열, 홈에서는 링크 이동) ===== -->
+  <section class="container section">
+    <h2 class="section-title">Featured Products</h2>
+    <p class="section-sub">Meet Julieta M and Julieta H.</p>
+
+    <div class="prod-grid">
+      <!-- Julieta M -->
+      <article class="prod-card prod--row reveal">
+        <a class="prod-media" href="products.html?product=M" aria-label="Julieta M">
+          <img src="images/product01_M.png" alt="Julieta M package">
+        </a>
+        <div class="prod-body">
+          <h3 class="prod-name">Julieta M</h3>
+          <p class="prod-copy">Deep skin areas. Natural yet defined results.</p>
+          <ul class="prod-bullets">
+            <li>Cross-linked HA 24 mg/mL</li>
+            <li>Cheekbone, marionette lines, mentum</li>
+          </ul>
+          <div class="prod-cta">
+            <a class="btn btn--lg" href="products.html?product=M">View Detail</a>
           </div>
         </div>
-        <div class="rounded shadow reveal">
-          <picture class="content-picture">
-            <source srcset="images/mobile-julieta-page.jpg" media="(max-width: 768px)">
-            <img src="images/julieta-page.jpg"
-                 alt="About Julieta — overview"
-                 width="2011" height="2048" loading="lazy" decoding="async">
-          </picture>
-        </div>
-      </div>
-    </section>
+      </article>
 
-    <!-- 제품 섹션 -->
-    <section class="band">
-      <div class="container">
-        <h2 class="section-title reveal">Products</h2>
-        <p class="section-sub reveal">Meet Julieta M and Julieta H.</p>
-
-        <div class="products-grid">
-          <article class="card card--dense reveal">
-            <img src="images/product01_M.png" alt="Julieta M package" width="500" height="500" class="zoom-image" loading="lazy" decoding="async">
-            <div class="card-body">
-              <p class="title">Julieta M</p>
-              <p class="sub">Deep skin areas. Natural yet defined results.</p>
-              <a class="btn btn--lg" href="products.html?product=M">View Detail</a>
-            </div>
-          </article>
-
-          <article class="card card--dense reveal">
-            <img src="images/product02_H.png" alt="Julieta H package" width="500" height="500" class="zoom-image" loading="lazy" decoding="async">
-            <div class="card-body">
-              <p class="title">Julieta H</p>
-              <p class="sub">Volume areas. High stability & viscosity.</p>
-              <a class="btn btn--lg" href="products.html?product=H">View Detail</a>
-            </div>
-          </article>
-        </div>
-
-        <div class="hr"></div>
-
-        <div class="reveal" style="text-align:center">
-          <a class="btn" href="products.html">See all products</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Technology 섹션 -->
-    <section class="band">
-      <div class="container cols-2-lg">
-        <div class="rounded shadow reveal">
-          <picture class="content-picture">
-            <source srcset="images/mobile-technology-page.jpg" media="(max-width: 768px)">
-            <img src="images/technology-page.jpg"
-                 alt="Technology overview"
-                 width="2011" height="2056" loading="lazy" decoding="async">
-          </picture>
-        </div>
-        <div>
-          <h2 class="section-title reveal">Technology</h2>
-          <p class="section-sub reveal">Smooth, natural and lasting results with Julieta’s BVS concept.</p>
-          <div class="reveal">
-            <a class="btn btn--lg" href="technology.html">Learn more</a>
+      <!-- Julieta H -->
+      <article class="prod-card prod--row reveal">
+        <a class="prod-media" href="products.html?product=H" aria-label="Julieta H">
+          <img src="images/product02_H.png" alt="Julieta H package">
+        </a>
+        <div class="prod-body">
+          <h3 class="prod-name">Julieta H</h3>
+          <p class="prod-copy">Volume areas. High stability &amp; viscosity.</p>
+          <ul class="prod-bullets">
+            <li>Cross-linked HA 24 mg/mL</li>
+            <li>Chest, butt, thigh</li>
+          </ul>
+          <div class="prod-cta">
+            <a class="btn btn--lg" href="products.html?product=H">View Detail</a>
           </div>
         </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== About highlight (좌/우 스플릿) ===== -->
+  <section class="container section band band--alt">
+    <div class="split">
+      <div class="split-text reveal">
+        <h2 class="section-title">About Julieta</h2>
+        <p class="section-lead">
+          A premium dermal filler brand merging medical precision with artistic vision
+          to restore natural volume and facial harmony—safe, refined, and reliable.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn--lg" href="about.html">Learn More</a>
+          <a class="btn btn--lg btn--outline" href="technology.html">Our Technology</a>
+        </div>
       </div>
-    </section>
-
-    <!-- Contact CTA -->
-    <section class="band band--dark">
-      <div class="container" style="text-align:center">
-        <h2 class="section-title reveal">Get in touch</h2>
-        <p class="section-sub reveal">Product & partnership inquiries</p>
-        <a class="btn btn--lg" href="contact.html">Contact us</a>
+      <div class="split-media reveal" aria-hidden="true">
+        <img src="images/julieta-page.jpg" alt="">
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <!-- ===== Technology teaser ===== -->
+  <section class="container section">
+    <div class="grid cols-2">
+      <div class="card card--dense reveal">
+        <img src="images/technology-page.jpg" alt="Julieta Technology" />
+      </div>
+      <div class="reveal" style="display:flex;flex-direction:column;justify-content:center;">
+        <h2 class="section-title">Technology</h2>
+        <p class="section-sub">
+          Creating perfect balance with BVS™ technology—smooth, natural, and lasting results.
+        </p>
+        <a class="btn btn--lg" href="technology.html">Explore Technology</a>
+      </div>
+    </div>
+  </section>
 
+  <!-- ===== Contact CTA (배너 아랫부분) ===== -->
+  <section class="band band--dark">
+    <div class="container" style="text-align:center">
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="section-sub">For partnerships, distribution, or general inquiries</p>
+      <a class="btn btn--lg" href="contact.html">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <div data-include="footer"></div>
 </body>
 </html>
