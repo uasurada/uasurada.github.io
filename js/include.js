@@ -16,6 +16,8 @@
 
   // products.html?product=M|H 로 진입 시 모달 자동 오픈 (선택 기능)
   autoOpenProductDetailFromQuery();
+
+  initContactChannel();   // Contact 페이지 채널 탭/분기
 })();
 
 // --- nav (mobile toggle) ---
@@ -220,3 +222,73 @@ document.addEventListener('keydown', function(e) {
     e.preventDefault();
   }
 });
+
+function initContactChannel(){
+  const page = document.documentElement.getAttribute('data-page') || '';
+  if (page !== 'contact') return; // contact 페이지에서만 동작
+
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+
+  const emailAction   = form.dataset.emailAction || form.getAttribute('action');
+  const whatsappLink  = form.dataset.whatsappLink || ''; // 나중에 번호 세팅
+  const channelInput  = document.getElementById('channel');
+  const submitBtn     = document.getElementById('submitBtn');
+  const waHint        = document.getElementById('waHint');
+
+  // 탭 토글
+  const tabs = document.querySelectorAll('.channel-tab');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-pressed','false'); });
+      tab.classList.add('active'); tab.setAttribute('aria-pressed','true');
+
+      const method = tab.dataset.method;  // 'email' | 'whatsapp'
+      channelInput.value = method;
+
+      if (method === 'email'){
+        submitBtn.textContent = 'Send via Email';
+        form.setAttribute('action', emailAction);
+        waHint.hidden = true;
+      } else {
+        submitBtn.textContent = 'Start WhatsApp';
+        // 폼 action 은 임시로 막아두고, submit 시 JS가 처리
+        form.setAttribute('action', '#');
+        waHint.hidden = whatsappLink ? true : false;
+      }
+    });
+  });
+
+  // 제출 분기
+  form.addEventListener('submit', (e)=>{
+    const method = channelInput.value;
+    if (method === 'email'){
+      // 기본 메일 폼 전송 (Formspree 등) → 그대로 진행
+      return;
+    }
+    // WhatsApp 분기
+    e.preventDefault();
+    if (!whatsappLink){
+      alert('WhatsApp 번호가 아직 설정되지 않았습니다. 설정 후 자동 연결됩니다.');
+      return;
+    }
+    const msg = form.message ? form.message.value : '';
+    const encoded = encodeURIComponent(msg || 'Hello Julieta team!');
+    const url = `${whatsappLink}?text=${encoded}`;
+    window.open(url, '_blank', 'noopener');
+  });
+}
+
+
+// include.js 맨 아래 근처에 추가 (옵션)
+(function initFloatingWA(){
+  const el = document.querySelector('.fab-whatsapp');
+  if (!el) return;
+  const link = el.getAttribute('data-link'); // 예: "https://wa.me/821012345678"
+  if (!link){ el.hidden = true; return; }
+  el.hidden = false;
+  el.addEventListener('click', (e)=>{
+    e.preventDefault();
+    window.open(link, '_blank', 'noopener');
+  });
+})();

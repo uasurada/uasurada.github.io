@@ -346,3 +346,30 @@ body.modal-open{ overflow: hidden; }
 
 /* style.css 맨 아래에 */
 .prod-card { scroll-margin-top: 80px; } /* 헤더 높이에 맞춰 조정 */
+
+
+/* Contact: 채널 탭 */
+.contact-channel{
+  display:flex; gap:.75rem; justify-content:center; margin:1rem 0 1.25rem;
+}
+.channel-tab{
+  display:flex; align-items:center; gap:.5rem;
+  padding:.75rem 1rem; border-radius:999px; border:1px solid #e5e5e5;
+  background:#fff; cursor:pointer; font-weight:700;
+  box-shadow:0 4px 12px rgba(0,0,0,.05);
+}
+.channel-tab svg{ opacity:.85; }
+.channel-tab.active{
+  border-color:#111; background:#111; color:#fff;
+}
+.channel-tab:focus{ outline:2px solid #111; outline-offset:2px; }
+
+.hint{ font-size:.92rem; color:#666; text-align:center; margin-top:.5rem; }
+
+.fab-whatsapp{
+  position:fixed; bottom:20px; right:20px; z-index:1000;
+  width:60px; height:60px; border-radius:50%; background:#25D366;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.2);
+}
+.fab-whatsapp:hover{ transform:translateY(-2px); }
