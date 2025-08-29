@@ -362,3 +362,79 @@ body.modal-open{ overflow:hidden; }
    (선택) 가독성 보정: 큰 글씨가 카드 경계에 딱 붙어 보이지 않게 패딩 보정
    ============================== */
 .card .card-body { padding: 1rem 1.25rem; }
+
+/* ===== Full-viewport Hero ===== */
+:root{
+  /* 이미 있으나, 숫자가 다르면 네비 실제 높이에 맞춰 주세요 */
+  --nav-h: 64px;
+}
+
+/* 화면 한 뷰포트에 딱 맞는 히어로 섹션 (네비 높이 차감) */
+.hero{
+  height: calc(100vh - var(--nav-h));
+  min-height: 520px;               /* 너무 낮아지는 모바일 대비(원하면 조정/삭제) */
+  margin: 0;
+  padding: 0;
+  box-shadow: 0 1px 0 rgba(0,0,0,.06);
+}
+
+/* picture와 이미지가 hero 높이를 100% 채우도록 */
+.hero-picture{
+  display:block;
+  width:100%;
+  height:100%;
+}
+.hero-picture img{
+  width:100%;
+  height:100%;
+  object-fit: cover;               /* 꽉 채우고 남는 부분은 자연스럽게 크롭 */
+  object-position: center;         /* 크롭 기준 (필요 시 right/left 등으로 조정) */
+}
+
+/* PC에서 한 화면 꽉 채우기를 더 강하게 하고 싶다면(선택) */
+@media (min-width: 1200px){
+  .hero{ min-height: 680px; }
+}
+
+/* 히어로 바로 다음 섹션과 간격 정돈 (필요시) */
+.section, .band{ scroll-margin-top: calc(var(--nav-h) + 12px); }
+
+/* 배너 래퍼가 인라인 라인박스를 만들어 공백이 생기는 문제 방지 */
+.hero { 
+  margin: 0; 
+  padding: 0; 
+  line-height: 0;          /* inline 라인박스 제거 */
+}
+
+/* picture 기본이 inline → block으로 고정, 라인박스 제거 */
+.hero-picture{
+  display:block;
+  width:100%;
+  line-height:0;
+}
+
+/* 배너 이미지: 레이아웃 참여 보장 + 크롭 없이 꽉 차게 보이도록 */
+.hero-picture img{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit: cover;        /* 모바일에서 여백 생김 방지(크롭 최소화) */
+  object-position: center;
+  content-visibility: visible !important;  /* 높이 계산 꼬임 방지 */
+}
+
+/* 혹시 이전에 추가한 전역 규칙이 영향을 주는 경우 무효화 */
+img[loading="lazy"]{
+  content-visibility: auto;
+}
+.hero picture img[loading="lazy"]{
+  content-visibility: visible !important;
+}
+
+/* 섹션 기본 여백은 정상적으로 유지 */
+.section{ padding: 3rem 0; }
+
+.hero, .hero-picture, .hero-picture img { 
+  height:auto !important; 
+  min-height:0 !important; 
+}

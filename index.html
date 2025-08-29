@@ -11,7 +11,7 @@
   <!-- Header -->
   <div data-include="header"></div>
 
-  <!-- ===== Hero (배너 원형 유지: PC/Mobile 개별 이미지) ===== -->
+  <!-- ===== Hero (배너: PC/Mobile 개별 이미지 유지) ===== -->
   <section class="hero">
     <picture class="hero-picture">
       <source srcset="images/mobile-banner.jpg" media="(max-width: 768px)">
@@ -19,31 +19,7 @@
     </picture>
   </section>
 
-  <!-- ===== Key Values (짧고 굵게 3포인트) ===== -->
-  <section class="container section">
-    <div class="grid cols-3 reveal">
-      <div class="card card--dense">
-        <div class="card-body">
-          <h3 class="section-title" style="font-size:1.25rem;margin:0 0 .35rem;">High-Purity HA</h3>
-          <p class="section-sub" style="margin:0;color:#444;">Injection-grade hyaluronic acid with top-grade raw materials.</p>
-        </div>
-      </div>
-      <div class="card card--dense">
-        <div class="card-body">
-          <h3 class="section-title" style="font-size:1.25rem;margin:0 0 .35rem;">Safety &amp; Reliability</h3>
-          <p class="section-sub" style="margin:0;color:#444;">Strict compliance with international quality standards.</p>
-        </div>
-      </div>
-      <div class="card card--dense">
-        <div class="card-body">
-          <h3 class="section-title" style="font-size:1.25rem;margin:0 0 .35rem;">Natural Results</h3>
-          <p class="section-sub" style="margin:0;color:#444;">Balanced rheology designed for smooth, refined outcomes.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Featured Products (가로형 2열, 홈에서는 링크 이동) ===== -->
+  <!-- ===== Featured Products (1순위로 배치) ===== -->
   <section class="container section">
     <h2 class="section-title">Featured Products</h2>
     <p class="section-sub">Meet Julieta M and Julieta H.</p>
@@ -87,8 +63,34 @@
     </div>
   </section>
 
-  <!-- ===== About highlight (좌/우 스플릿) ===== -->
-  <section class="container section band band--alt">
+  <!-- ===== Key Values (제품 아래로 이동, 밴드 톤으로 낮춤) ===== -->
+  <section class="band band--alt">
+    <div class="container section">
+      <div class="grid cols-3 reveal">
+        <div class="card card--dense">
+          <div class="card-body">
+            <h3 class="section-title" style="font-size:1.2rem;margin:0 0 .35rem;">High-Purity HA</h3>
+            <p class="section-sub" style="margin:0;color:#444;">Injection-grade hyaluronic acid with top-grade raw materials.</p>
+          </div>
+        </div>
+        <div class="card card--dense">
+          <div class="card-body">
+            <h3 class="section-title" style="font-size:1.2rem;margin:0 0 .35rem;">Safety &amp; Reliability</h3>
+            <p class="section-sub" style="margin:0;color:#444;">Strict compliance with international quality standards.</p>
+          </div>
+        </div>
+        <div class="card card--dense">
+          <div class="card-body">
+            <h3 class="section-title" style="font-size:1.2rem;margin:0 0 .35rem;">Natural Results</h3>
+            <p class="section-sub" style="margin:0;color:#444;">Balanced rheology designed for smooth, refined outcomes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== About highlight ===== -->
+  <section class="container section">
     <div class="split">
       <div class="split-text reveal">
         <h2 class="section-title">About Julieta</h2>
@@ -123,7 +125,7 @@
     </div>
   </section>
 
-  <!-- ===== Contact CTA (배너 아랫부분) ===== -->
+  <!-- ===== Contact CTA ===== -->
   <section class="band band--dark">
     <div class="container" style="text-align:center">
       <h2 class="section-title">Get in Touch</h2>
