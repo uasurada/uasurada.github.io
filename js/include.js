@@ -10,12 +10,15 @@
   // after include: init nav, active link, smooth scroll, modal, reveal
   initNav();
   setActiveLink();
-  initSmoothScroll();
+  initSmoothScroll(); // 같은 페이지 내 앵커용(페이지 분리 구조여도 안전)
   initProductModal();
   initReveal();
+
+  // products.html?product=M|H 로 진입 시 모달 자동 오픈 (선택 기능)
+  autoOpenProductDetailFromQuery();
 })();
 
-// --- nav (mobile toggle + logo link stays solid) ---
+// --- nav (mobile toggle) ---
 function initNav(){
   const toggle = document.querySelector('.nav-toggle');
   const menu = document.querySelector('.nav-menu');
@@ -33,10 +36,16 @@ function initNav(){
   });
 }
 
-// --- active menu ---
+// --- active menu (by data-page attr) ---
 function setActiveLink(){
   const page = document.documentElement.getAttribute('data-page') || '';
-  const map = { home:'index.html', about:'about.html', products:'products.html', technology:'technology.html', contact:'contact.html' };
+  const map = {
+    home:'index.html',
+    about:'about.html',
+    products:'products.html',
+    technology:'technology.html',
+    contact:'contact.html'
+  };
   const currentHref = map[page];
 
   document.querySelectorAll('.nav-menu a').forEach(a => {
@@ -77,7 +86,7 @@ function initProductModal(){
   const imgEl  = modal.querySelector('img');
   const titleEl= modal.querySelector('.modal-title');
   const header = modal.querySelector('[data-modal-drag-handle]');
-  const closeBtn = modal.querySelector('.modal-close'); // ← 추가
+  const closeBtn = modal.querySelector('.modal-close');
   const mql    = window.matchMedia('(max-width: 768px)');
 
   const pickSrc = (btn) =>
@@ -110,16 +119,13 @@ function initProductModal(){
     open(pickSrc(btn), btn.dataset.modalTitle || '');
   });
 
-  // X 버튼 직접 닫기 (드래그 핸들 이벤트와 충돌 방지)
-   if (closeBtn) {
-    closeBtn.addEventListener('pointerdown', (e) => e.stopPropagation()); // 추가
-    closeBtn.addEventListener('click', (e) => {
-     e.stopPropagation();
-     close();
-    });
-   }
-  
-  // close by bg or X
+  // X 버튼
+  if (closeBtn) {
+    closeBtn.addEventListener('pointerdown', (e) => e.stopPropagation());
+    closeBtn.addEventListener('click', (e) => { e.stopPropagation(); close(); });
+  }
+
+  // close by bg / X
   modal.addEventListener('click', (e) => {
     if (e.target.matches('.modal, .modal-close')) close();
   });
@@ -139,10 +145,7 @@ function initProductModal(){
   const threshold = 120;
 
   const onDown = (e) => {
-
-      // 닫기(X) 버튼 위에서 누른 경우 드래그 시작 금지
-    if (e.target.closest('.modal-close')) return;
-
+    if (e.target.closest('.modal-close')) return; // close 버튼에서 드래그 금지
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     dragging = true; pid = e.pointerId; startY = e.clientY; dy = 0;
     header.setPointerCapture && header.setPointerCapture(pid);
@@ -167,4 +170,35 @@ function initProductModal(){
   header.addEventListener('pointermove', onMove);
   header.addEventListener('pointerup', onUp);
   header.addEventListener('pointercancel', onUp);
+}
+
+// --- Auto-open product modal by query (?product=M|H) ---
+function autoOpenProductDetailFromQuery(){
+  const page = document.documentElement.getAttribute('data-page') || '';
+  if (page !== 'products') return;
+
+  const params = new URLSearchParams(location.search);
+  const code = (params.get('product') || '').toUpperCase(); // 'M' or 'H'
+  if (!code) return;
+
+  const btn = Array.from(document.querySelectorAll('[data-modal-title]'))
+              .find(b => (b.dataset.modalTitle || '').toUpperCase().endsWith(' ' + code));
+  if (!btn) return;
+
+  const mql = window.matchMedia('(max-width: 768px)');
+  const src = mql.matches
+    ? (btn.dataset.modalSrcMobile || btn.dataset.modalSrcDesktop)
+    : (btn.dataset.modalSrcDesktop || btn.dataset.modalSrcMobile);
+
+  const modal = document.querySelector('#productModal');
+  if (!modal) return;
+
+  const imgEl   = modal.querySelector('img');
+  const titleEl = modal.querySelector('.modal-title');
+
+  imgEl.src = src;
+  titleEl.textContent = btn.dataset.modalTitle || '';
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
 }
