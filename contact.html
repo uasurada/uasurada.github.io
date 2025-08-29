@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact | Julieta</title>
+  <meta name="description" content="Contact Julieta — product, partnership and general inquiries.">
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/include.js" defer></script>
 </head>
@@ -13,34 +14,44 @@
   <div class="section-banner">
     <picture>
       <source srcset="images/mobile-contact-us-banner.jpg" media="(max-width: 768px)">
-      <img src="images/contact-us-banner.jpg" alt="Contact banner">
+      <img src="images/contact-us-banner.jpg"
+           alt="Contact us banner"
+           width="2048" height="683" loading="lazy" decoding="async">
     </picture>
   </div>
 
   <main class="contact-page">
-    <h2>Contact Us</h2>
+    <h2 class="section-title">Contact Us</h2>
 
     <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form" novalidate>
-      <label>Inquiry Type
-        <select name="type" required>
-          <option value="product">Product</option>
-          <option value="partnership">Partnership</option>
-          <option value="etc">Other</option>
-        </select>
-      </label>
+      <label for="inqType">Inquiry Type</label>
+      <select id="inqType" name="type" required>
+        <option value="product">Product</option>
+        <option value="partnership">Partnership</option>
+        <option value="etc">Other</option>
+      </select>
 
-      <input type="text" name="subject" placeholder="Subject" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="text" name="phone" placeholder="Phone">
-      <input type="text" name="name" placeholder="Name" required>
-      <textarea name="message" placeholder="Your message" required></textarea>
+      <label for="subject">Subject</label>
+      <input id="subject" type="text" name="subject" placeholder="Subject" required>
+
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" placeholder="Email" required>
+
+      <label for="phone">Phone</label>
+      <input id="phone" type="text" name="phone" placeholder="Phone">
+
+      <label for="name">Name</label>
+      <input id="name" type="text" name="name" placeholder="Name" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Your message" required></textarea>
 
       <label class="agree">
         <input type="checkbox" required>
         I agree to the collection and use of personal information.
       </label>
 
-      <button type="submit">Submit</button>
+      <button type="submit" class="btn btn--lg">Submit</button>
     </form>
   </main>
 

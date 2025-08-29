@@ -4,26 +4,90 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About | Julieta</title>
+  <meta name="description" content="About Julieta — philosophy, quality and safety-first manufacturing." />
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/include.js" defer></script>
 </head>
 <body>
   <div data-include="header"></div>
 
-  <div class="section-banner">
-    <picture>
-      <source srcset="images/mobile-julieta-banner.jpg" media="(max-width: 768px)">
-      <img src="images/julieta-banner.jpg" alt="Julieta banner">
-    </picture>
-  </div>
+  <!-- Full-screen cover hero (background image + glass card) -->
+  <section class="hero hero--cover"
+           style="--cover:url('images/julieta-banner.jpg')">
+    <div class="hero-inner glass">
+      <h1 class="hero-title">About Julieta</h1>
+      <p class="hero-lead">
+        Julieta is not simply a filler; it represents a luxury experience and a new standard of
+        elegance in facial aesthetics. Developed with strict scientific standards and advanced technology,
+        Julieta is designed to restore natural volume, refine facial harmony, and enhance patient
+        confidence in a way that feels authentic and refined.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn--lg" href="products.html">See Products</a>
+        <a class="btn btn--lg btn--outline" href="technology.html">See Technology</a>
+      </div>
+    </div>
+  </section>
 
-  <main class="container">
-    <section>
-      <picture class="content-picture reveal">
-        <source srcset="images/mobile-julieta-page.jpg" media="(max-width: 768px)">
-        <img src="images/julieta-page.jpg" alt="About Julieta">
-      </picture>
+  <main>
+
+    <!-- Split section: large readable text + supporting visual -->
+    <section class="band">
+      <div class="container split">
+        <div class="split-text">
+          <h2 class="section-title">Our Vision</h2>
+          <p class="section-lead">
+            Our philosophy merges medical precision with artistic vision to create results that are both
+            safe and sophisticated. For partners, clinics, hospitals, and distributors, Julieta delivers a
+            powerful value proposition—meeting the highest safety and efficacy requirements while
+            elevating patient trust and strengthening clinic reputation.
+          </p>
+          <p>
+            By positioning Julieta as a premium choice, our partners gain a competitive edge in markets
+            where patients demand both reliability and elegance.
+          </p>
+        </div>
+
+        <div class="split-media rounded shadow">
+          <picture class="content-picture">
+            <source srcset="images/mobile-julieta-page.jpg" media="(max-width: 768px)">
+            <img src="images/julieta-page.jpg" alt="Julieta overview" width="2011" height="2048" loading="lazy" decoding="async">
+          </picture>
+        </div>
+      </div>
     </section>
+
+    <!-- Philosophy: dense 3-up feature cards -->
+    <section class="band band--alt">
+      <div class="container">
+        <h2 class="section-title">Our Philosophy</h2>
+        <p class="section-sub">Safety-first manufacturing, precision, and uncompromising standards—built for outcomes that look natural and last.</p>
+
+        <div class="features-grid">
+          <article class="card card--dense">
+            <div class="card-body">
+              <h3 class="feature-title">High-Purity Hyaluronic Acid</h3>
+              <p>Only extra-pure injection-grade HA and top-grade raw materials are used to ensure consistent performance.</p>
+            </div>
+          </article>
+
+          <article class="card card--dense">
+            <div class="card-body">
+              <h3 class="feature-title">Safe & Certified Manufacturing</h3>
+              <p>Produced in strict compliance with international standards and quality systems for patient safety.</p>
+            </div>
+          </article>
+
+          <article class="card card--dense">
+            <div class="card-body">
+              <h3 class="feature-title">Refined, Natural Results</h3>
+              <p>Balanced rheology designed to deliver smooth, stable shaping with results that feel authentic.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <div data-include="footer"></div>

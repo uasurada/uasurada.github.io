@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Products | Julieta</title>
+  <meta name="description" content="Explore Julieta dermal filler line — M and H.">
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/include.js" defer></script>
 </head>
@@ -13,43 +14,47 @@
   <div class="section-banner">
     <picture>
       <source srcset="images/mobile-products-banner.jpg" media="(max-width: 768px)">
-      <img src="images/products-banner.jpg" alt="Products banner">
+      <img src="images/products-banner.jpg"
+           alt="Julieta products banner"
+           width="2048" height="683" loading="lazy" decoding="async">
     </picture>
   </div>
 
   <main class="container">
     <section>
-      <h2 class="reveal">Our Products</h2>
-      <!--p class="lead reveal">Minimal, premium, and designed for refined results.</p-->
+      <h2 class="section-title reveal">Our Products</h2>
+      <p class="section-sub reveal">Choose your Julieta line.</p>
 
-      <div class="grid cols-2">
-        <div class="card reveal">
-          <img src="images/product01_M.png" alt="Julieta M" class="zoom-image">
+      <div class="products-grid">
+        <!-- M -->
+        <article class="card card--dense reveal">
+          <img src="images/product01_M.png" alt="Julieta M package" width="500" height="500" class="zoom-image">
           <div class="card-body">
-            <p class="title product-name">Julieta M</p>
-            <!--p class="sub">Refined balance and natural volume.</p-->
+            <p class="title">Julieta M</p>
+            <p class="sub">Deep skin areas. Natural yet defined results.</p>
             <button
-              class="btn"
+              class="btn btn--lg"
               data-modal-title="Julieta M"
               data-modal-src-desktop="images/products-m-detail-page.jpg"
               data-modal-src-mobile="images/mobile-products-m-detail-page.jpg"
             >View Detail</button>
           </div>
-        </div>
+        </article>
 
-        <div class="card reveal">
-          <img src="images/product02_H.png" alt="Julieta H" class="zoom-image">
+        <!-- H -->
+        <article class="card card--dense reveal">
+          <img src="images/product02_H.png" alt="Julieta H package" width="500" height="500" class="zoom-image">
           <div class="card-body">
-            <p class="title product-name">Julieta H</p>
-            <!--p class="sub">High viscosity with stability.</p-->
+            <p class="title">Julieta H</p>
+            <p class="sub">Volume areas. High stability & viscosity.</p>
             <button
-              class="btn"
+              class="btn btn--lg"
               data-modal-title="Julieta H"
               data-modal-src-desktop="images/products-h-detail-page.jpg"
               data-modal-src-mobile="images/mobile-products-h-detail-page.jpg"
             >View Detail</button>
           </div>
-        </div>
+        </article>
       </div>
     </section>
   </main>
@@ -61,7 +66,7 @@
         <strong class="modal-title" id="modalTitle">Product</strong>
         <button class="modal-close" aria-label="Close">✕</button>
       </div>
-      <img src="" alt="Product detail">
+      <img src="" alt="Product detail" width="2011" height="2048">
     </div>
   </div>
 
