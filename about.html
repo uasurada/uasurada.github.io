@@ -11,26 +11,17 @@
 <body>
   <div data-include="header"></div>
 
-  <!-- Full-screen cover hero (background image + glass card) -->
-  <section class="hero hero--cover"
-           style="--cover:url('images/julieta-banner.jpg')">
-    <div class="hero-inner glass">
-      <h1 class="hero-title">About Julieta</h1>
-      <p class="hero-lead">
-        Julieta is not simply a filler; it represents a luxury experience and a new standard of
-        elegance in facial aesthetics. Developed with strict scientific standards and advanced technology,
-        Julieta is designed to restore natural volume, refine facial harmony, and enhance patient
-        confidence in a way that feels authentic and refined.
-      </p>
-      <div class="hero-cta">
-        <a class="btn btn--lg" href="products.html">See Products</a>
-        <a class="btn btn--lg btn--outline" href="technology.html">See Technology</a>
+    <!-- ===== Page Banner (About) ===== -->
+      <div class="section-banner">
+        <picture>
+          <source srcset="images/mobile-julieta-banner.jpg" media="(max-width: 768px)">
+          <img src="images/julieta-banner.jpg"
+              alt="About Julieta banner"
+              width="2048" height="683" loading="lazy" decoding="async">
+        </picture>
       </div>
-    </div>
-  </section>
 
-  <main>
-
+      <main>
     <!-- Split section: large readable text + supporting visual -->
     <section class="band">
       <div class="container split">
@@ -48,11 +39,18 @@
           </p>
         </div>
 
-        <div class="split-media rounded shadow">
-          <picture class="content-picture">
-            <source srcset="images/mobile-julieta-page.jpg" media="(max-width: 768px)">
-            <img src="images/julieta-page.jpg" alt="Julieta overview" width="2011" height="2048" loading="lazy" decoding="async">
-          </picture>
+        <!-- 이미지 영역: Tech 페이지와 동일한 박스형 프레임 적용 -->
+        <div class="split-media reveal">
+          <figure class="media-box">
+            <picture>
+              <source srcset="images/mobile-julieta-page.jpg" media="(max-width: 768px)">
+              <img
+                src="images/julieta-page.jpg"
+                alt="Julieta overview"
+                width="2011" height="2048"
+                loading="lazy" decoding="async" />
+            </picture>
+          </figure>
         </div>
       </div>
     </section>
@@ -87,7 +85,6 @@
         </div>
       </div>
     </section>
-
   </main>
 
   <div data-include="footer"></div>

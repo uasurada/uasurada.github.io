@@ -1,283 +1,172 @@
 /* ============================================================
-   Julieta - Global Styles (FULL)
-   - Base / Layout / Navbar / Banners
-   - About (cover + split), Products (cards)
-   - Modal, Reveal, Utilities
-   - Copy-protection (text-select off, image-drag off)
+   Julieta - Global Styles (FINAL, optimized & unified)
    ============================================================ */
 
-/* ---------- Reset & base ---------- */
+/* ---------- Reset & Base ---------- */
 * { box-sizing: border-box; }
 html, body { margin:0; padding:0; }
 :root{
-  --nav-h: 64px;           /* 고정 네비 높이 */
+  --nav-h: 64px;            /* fixed header height */
   --brand-dark:#111;
   --text:#333;
   --muted:#666;
   --border:#eaeaea;
 }
 body{
-  font-family: "Segoe UI", system-ui, Helvetica, Arial, sans-serif;
-  color:var(--text);
-  background:#fff;
-  line-height:1.6;
-
-  /* 전체 텍스트 선택 방지 (입력 필드는 예외 처리 아래 있음) */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  font-family:"Segoe UI",system-ui,Helvetica,Arial,sans-serif;
+  color:var(--text); background:#fff; line-height:1.6;
+  -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;
+  padding-top: var(--nav-h); /* fixed-header offset */
 }
-
-/* 입력 필드/에디터/선택 허용이 필요한 곳은 다시 허용 */
+/* allow selection where needed */
 input, textarea, select, [contenteditable="true"], .allow-select *{
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
+  -webkit-user-select:text; -moz-user-select:text; -ms-user-select:text; user-select:text;
 }
+/* no image drag ghost */
+img { -webkit-user-drag:none; user-drag:none; }
+/* picture 기본 공백 제거(라인박스) */
+picture{ display:block; line-height:0; }
 
-/* 이미지 드래그 방지 */
-img { -webkit-user-drag: none; user-drag: none; }
-
-/* ---------- Generic containers ---------- */
+/* ---------- Containers / Sections / Titles ---------- */
 .container{ max-width:1200px; margin:0 auto; padding:2rem 1.25rem; }
 .section{ padding:3rem 0; }
 .section + .section{ padding-top:2rem; }
-
-/* 제목/서브텍스트 공통 */
 .section-title{
-  font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2rem);
-  color:var(--brand-dark);
-  margin:.25rem 0 1rem;
-  font-weight:800;
+  font-size:clamp(1.6rem, 1.3rem + 1.2vw, 2rem);
+  color:var(--brand-dark); font-weight:800; margin:.25rem 0 1rem;
 }
-.section-sub{
-  color:#555;
-  margin:0 0 1.25rem;
-}
+.section-sub{ color:#555; margin:0 0 1.25rem; }
 
-/* ---------- Navbar (sticky) ---------- */
+/* ---------- Navbar (fixed) ---------- */
 .navbar{
-  position:sticky; top:0; z-index:1000;
+  position:fixed; top:0; left:0; right:0; z-index:1000;
   display:flex; align-items:center; justify-content:space-between;
-  height:var(--nav-h);
-  padding:0 1.25rem; background:#fff;
-  box-shadow:0 2px 5px rgba(0,0,0,.08);
+  height:var(--nav-h); padding:0 1.25rem;
+  background:#fff; box-shadow:0 2px 5px rgba(0,0,0,.08);
 }
 .nav-logo{ font-size:2rem; font-weight:800; color:#111; text-decoration:none; }
 .nav-menu{ display:flex; list-style:none; gap:1.25rem; margin:0; padding:0; }
-.nav-menu a{
-  text-decoration:none; color:#333; font-weight:500;
-  padding:.25rem .2rem; position:relative;
-}
-/* 밑줄/라인 없이 활성 처리 */
+.nav-menu a{ text-decoration:none; color:#333; font-weight:500; padding:.25rem .2rem; }
 .nav-menu a.active{ color:#111; font-weight:700; }
 .nav-toggle{ display:none; background:none; border:0; font-size:1.6rem; cursor:pointer; }
-
-/* Mobile nav */
 @media (max-width:768px){
   .nav-toggle{ display:block; }
   .nav-menu{
     position:absolute; left:0; right:0; top:var(--nav-h);
     display:none; flex-direction:column; gap:.25rem;
     background:#fff; border-top:1px solid #eee;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-    padding:.75rem 1rem;
+    box-shadow:0 8px 20px rgba(0,0,0,.08); padding:.75rem 1rem;
   }
   .nav-menu.show{ display:flex; }
-  .nav-menu a{ padding:.75rem .25rem; text-decoration:none !important; }
+  .nav-menu a{ padding:.75rem .25rem; }
 }
 
-/* ---------- Banners / Images (no crop) ---------- */
-.hero-picture img,
-.section-banner picture img,
-.content-picture img{
-  width:100%; height:auto; display:block;
+/* ============================================================
+   HERO (PC: 이미지 전체 보임 contain + 좌우 블렌드 / Mobile: cover)
+   ============================================================ */
+.hero.hero--blend{
+  position:relative;
+  height:calc(100vh - var(--nav-h));     /* 한 화면 꽉 */
+  min-height:520px;
+  margin:0; padding:0; line-height:0;
+  overflow:hidden;
 }
 
-/* ---------- Grid helpers ---------- */
+/* PC & Tablet */
+@media (min-width:769px){
+  /* 뒤 배경: 좌우 빈 공간 없이 cover */
+  .hero.hero--blend::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:var(--hero-bg);
+    background-size:cover;
+    background-position:center;
+    z-index:0;
+  }
+  /* 앞 레이어: 원본 이미지를 한 화면에 정확히 contain */
+  .hero.hero--blend .hero-picture{
+    position:relative; z-index:1;
+    display:grid; place-items:center;
+    width:100%; height:100%;
+  }
+  .hero.hero--blend .hero-picture img{
+    max-width:100%; max-height:100%;
+    width:auto; height:auto;
+    object-fit:contain;            /* 절대 크롭 없음 */
+    object-position:center;
+  }
+}
+
+/* Mobile: 이미지 자체를 cover로 꽉 채우기 (크롭 허용) */
+@media (max-width:768px){
+  .hero.hero--blend::before{ display:none; }
+  .hero.hero--blend{ height:calc(100vh - var(--nav-h)); }
+  .hero.hero--blend .hero-picture{ width:100%; height:100%; display:block; }
+  .hero.hero--blend .hero-picture img{
+    width:100%; height:100%;
+    object-fit:cover; object-position:center;
+  }
+}
+
+/* ============================================================
+   GRID helpers
+   ============================================================ */
 .grid{ display:grid; gap:1.5rem; }
 .cols-3{ grid-template-columns:repeat(3,1fr); }
 .cols-2{ grid-template-columns:repeat(2,1fr); }
 @media (max-width:992px){ .cols-3{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:768px){ .cols-3, .cols-2{ grid-template-columns:1fr; } }
 
-/* ---------- Cards / Buttons ---------- */
+/* ============================================================
+   Cards & Buttons
+   ============================================================ */
 .card{
   background:#fff; border:1px solid #eee; border-radius:14px;
   box-shadow:0 8px 20px rgba(0,0,0,.06); overflow:hidden;
 }
 .card-body{ padding:1rem 1.25rem 1.5rem; }
 .card--dense .card-body{ padding:1rem 1rem 1.1rem; }
+
 .btn{
-  display:inline-block; border:0; cursor:pointer;
-  background:#222; color:#fff; padding:.6rem 1.1rem;
-  border-radius:10px; font-weight:700;
+  display:block; width:100%; max-width:320px; margin:.75rem auto 0;
+  border:0; cursor:pointer; background:#222; color:#fff;
+  padding:.8rem 1.25rem; border-radius:10px;
+  font-weight:700; text-align:center;
+  transition:background .2s ease, transform .2s ease;
 }
-.btn:hover{ background:#444; }
-.btn--lg{ padding:.8rem 1.25rem; font-size:1.05rem; }
+.btn:hover{ background:#444; transform:translateY(-2px); }
+.btn--lg{ padding:1rem 1.5rem; font-size:1.1rem; }
 .btn--outline{ background:#fff; color:#222; border:1px solid #dedede; }
 .btn--outline:hover{ background:#f4f4f4; }
-
-/* ---------- Contact page ---------- */
-.contact-page{ max-width:720px; margin:2rem auto; padding:0 1.25rem; text-align:center; }
-.contact-form{ display:flex; flex-direction:column; gap:1rem; margin-top:1rem; }
-.contact-form input, .contact-form textarea, .contact-form select{
-  width:100%; padding:.8rem; border:1px solid #ccc; border-radius:8px; font-size:1rem;
-  background:#fff;
-}
-.contact-form textarea{ min-height:160px; resize:vertical; }
-.contact-form label{ text-align:left; color:#333; font-weight:600; }
-.agree{ font-size:.95rem; color:#555; }
-
-/* ---------- Footer ---------- */
-footer{ background:#f7f7f7; padding:2rem 1.25rem; text-align:center; color:#666; }
-
-/* ---------- Modal (sheet) ---------- */
-.modal{
-  position:fixed; inset:0; background:rgba(0,0,0,.45);
-  display:none; align-items:flex-end; justify-content:center; padding:1rem;
-  z-index:2000;
-}
-.modal.active{ display:flex; }
-.modal-card{
-  width:min(960px, 96vw);
-  max-height:90vh;
-  background:#fff; border-radius:16px; overflow:auto;
-  box-shadow:0 20px 50px rgba(0,0,0,.25);
-}
-.modal-head{
-  position:sticky; top:0;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:.9rem 1rem; font-weight:700; background:#fff; border-bottom:1px solid #eee;
-  cursor:grab;
-}
-.modal-close{
-  border:0; background:#f4f4f4; width:34px; height:34px;
-  border-radius:8px; cursor:pointer;
-}
-.modal img{ display:block; width:100%; height:auto; aspect-ratio: 2011 / 2048; }
-@media (max-width:768px){ .modal img{ aspect-ratio: 1080 / 1039; } }
-body.modal-open{ overflow:hidden; }
-
-/* ---------- Reveal (fade-up) ---------- */
-.reveal{ opacity:0; transform:translateY(10px); transition:all .5s ease; }
-.reveal.show{ opacity:1; transform:none; }
-
-/* ---------- One-page anchor offset ---------- */
-#home, #about, #technology, #products, #contact{ scroll-margin-top: calc(var(--nav-h) + 16px); }
+.hero-cta{ display:flex; gap:.6rem; flex-wrap:wrap; }
 
 /* ============================================================
-   Hero (Cover) & About (Split)
+   Products
    ============================================================ */
-
-/* Full-screen cover hero with glass card */
-.hero--cover{
-  height: calc(100vh - var(--nav-h));
-  min-height: 620px;
-  position: relative;
-  display:flex; align-items:center; justify-content:center;
-  background: var(--cover) center/cover no-repeat;
-  isolation:isolate;
-}
-.hero--cover::before{
-  content:"";
-  position:absolute; inset:0;
-  background: linear-gradient(180deg, rgba(0,0,0,.08) 0%, rgba(0,0,0,.35) 100%);
-  z-index:-1;
-}
-.hero-inner{
-  width:min(960px, 92vw);
-  margin-inline:auto;
-  padding: clamp(1.25rem, 1rem + 2vw, 2rem);
-}
-.glass{
-  background: rgba(255,255,255,.22);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.25);
-  border: 1px solid rgba(255,255,255,.35);
-  color:#111;
-}
-.hero-title{
-  font-size: clamp(2rem, 1.4rem + 2.2vw, 3rem);
-  line-height:1.15; letter-spacing:-.01em; margin:0 0 .6rem; font-weight:800;
-}
-.hero-lead{
-  font-size: clamp(1.05rem, .95rem + .5vw, 1.2rem);
-  line-height:1.75; color:#1a1a1a; margin:0 0 1rem;
-}
-.hero-cta{ margin-top:.5rem; display:flex; gap:.6rem; flex-wrap:wrap; }
-
-/* About split section */
-.split{
-  display:grid; grid-template-columns: 1.1fr .9fr;
-  gap: clamp(1.25rem, 1rem + 1.2vw, 2rem);
-  align-items:center;
-}
-@media (max-width:992px){ .split{ grid-template-columns:1fr; } }
-.split-text{ max-width:720px; }
-.split-text .section-title{ margin-bottom:.5rem; }
-.split-text .section-lead{
-  font-size: clamp(1.05rem, .95rem + .5vw, 1.2rem);
-  line-height:1.75; color:#333; margin:0 0 1rem;
-}
-
-/* 이미지 카드 크게 보이도록 확대 + 드래그 방지 + 포커스 가능 */
-.split-media{
-  border-radius:16px; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,.15);
-  cursor: default;
-}
-.split-media img{
-  display:block; width:100%; height:auto;
-  transform: scale(1.2);           /* 확대해서 선명하게 */
-  transform-origin:center;
-}
-
-/* ============================================================
-   Products (renewal cards)
-   ============================================================ */
-.prod-grid{
-  display:grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 1.25rem;
-}
+.prod-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.25rem; }
 @media (max-width:900px){ .prod-grid{ grid-template-columns:1fr; } }
 
-/* 카드 */
 .prod-card{
   display:flex; flex-direction:column;
   background:#fff; border:1px solid var(--border); border-radius:16px;
-  overflow:hidden;
-  box-shadow: 0 8px 20px rgba(0,0,0,.06);
-  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,.06);
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 .prod-card:hover{
-  transform: translateY(-4px);
-  border-color:#e6e6e6;
-  box-shadow: 0 18px 36px rgba(0,0,0,.12);
+  transform:translateY(-4px); border-color:#e6e6e6;
+  box-shadow:0 18px 36px rgba(0,0,0,.12);
 }
 
-/* 상단 이미지: 3:2 비율, 살짝 확대 */
 .prod-media{
-  position:relative; width:100%;
-  aspect-ratio: 3 / 2;
-  background: linear-gradient(180deg, #fafafa, #f3f3f3);
-  cursor:pointer;                 /* 이미지 클릭 가능 */
+  position:relative; width:100%; aspect-ratio:3 / 2;
+  background:linear-gradient(180deg,#fafafa,#f3f3f3); cursor:pointer;
 }
-.prod-media:focus{ outline:2px solid #c9a74a; outline-offset:2px; }
 .prod-media img{
   position:absolute; inset:0;
   width:100%; height:100%;
-  object-fit: contain;
-  transform: scale(1.08);
-  transform-origin:center;
-  filter: drop-shadow(0 12px 14px rgba(0,0,0,.18));
+  object-fit:contain;
+  filter:drop-shadow(0 12px 14px rgba(0,0,0,.18));
 }
-.prod-media:hover img{ transform: scale(1.12); }
-
 .prod-body{ padding:1rem 1.1rem 1.25rem; }
 .prod-name{ font-size:1.2rem; font-weight:800; margin:.25rem 0 .35rem; color:#111; }
 .prod-copy{ color:#444; margin:0 0 .5rem; font-size:1.02rem; line-height:1.6; }
@@ -286,7 +175,7 @@ body.modal-open{ overflow:hidden; }
 .prod-cta{ display:flex; gap:.5rem; }
 
 /* ============================================================
-   Bands / Variants
+   Bands
    ============================================================ */
 .band{ padding:3rem 0; }
 .band--alt{ background:#fafafa; }
@@ -295,146 +184,165 @@ body.modal-open{ overflow:hidden; }
 .band--dark .section-sub{ color:#ddd; }
 
 /* ============================================================
-   Misc utilities
+   Split (About highlight, etc.)
    ============================================================ */
-.lead{ color:#666; margin-bottom:2rem; }
-.zoom-image{ transition:transform .3s ease, box-shadow .3s ease; border-radius:10px; }
-.zoom-image:hover{ transform:scale(1.05); box-shadow:0 6px 12px rgba(0,0,0,.15); }
-@media (max-width:768px){ .zoom-image:hover{ transform:none; box-shadow:none; } }
-
-/* 제품 상세 모달 안의 이미지도 선택 불가/드래그 방지 유지 */
-.modal img{
-  -webkit-user-select: none; user-select: none;
-  -webkit-user-drag: none; user-drag: none;
+.split{
+  display:grid; grid-template-columns: 1.1fr .9fr;
+  gap: clamp(1rem, 1vw, 2rem);
+  align-items:center;
+}
+@media (max-width:992px){ .split{ grid-template-columns:1fr; } }
+.split-media img{
+  display:block; width:100%; height:auto; object-fit:contain;
 }
 
+/* ============================================================
+   Technology / About – Media layout (공용)
+   ============================================================ */
 
-/* ==============================
-   Fix: grid overflow / min width
-   ============================== */
-.grid { 
-  /* 카드·이미지가 칼럼 경계에서 잘리지 않도록 */
-  grid-template-columns: repeat(var(--cols, 1), minmax(0, 1fr)) !important;
-}
-.cols-2 { --cols: 2; }
-.cols-3 { --cols: 3; }
-@media (max-width: 992px){ .cols-3{ --cols: 2; } }
-@media (max-width: 768px){ .cols-3, .cols-2{ --cols: 1; } }
-
-/* ==============================
-   Fix: 카드 내부 이미지 크롭 방지
-   ============================== */
-.card img,
-.card--dense img,
-.split-media img {
-  display:block;
-  width:100%;
-  height:auto;
-  object-fit: contain;     /* 잘림 없이 전체 보이게 */
-  object-position: center;
+/* 상단 배너(넓은 가로 이미지) */
+.section-banner picture,
+.section-banner img{
+  display:block; margin:0 auto;
+  width:100%; height:auto;
+  object-fit:contain; object-position:center;
 }
 
-/* 카드 바깥으로 이미지가 살짝 나가는 브라우저에서 줄 잘림처럼 보일 수 있어
-   overflow를 기본 해제하고, 정말 필요한 카드에만 별도로 overflow: hidden을 쓰자. */
-.card,
-.card--dense {
-  overflow: visible;       /* 잘림 방지 */
+/* 메인 비주얼 정렬 */
+.tech-visual{
+  display:flex; justify-content:center; align-items:center;
+  margin:1.5rem 0;
+}
+.tech-visual img{
+  display:block; max-width:150%; height:auto; margin:0 auto;
+  transform:none !important;
 }
 
-/* ==============================
-   Fix: Technology 티저 영역(좌우 2컬럼) 이미지 높이 지정 해제
-   - 혹시 강제 높이가 들어가 있었다면 제거
-   ============================== */
-.split-media,
-.card--dense { height:auto; }
-
-/* ==============================
-   Fix: Hero 배너는 원본 비율 유지 (크롭 없이)
-   ============================== */
-.hero-picture img{
-  width:100% !important;
-  height:auto !important;
-  object-fit: contain !important;  /* 배너 전체 보이게 */
-  object-position:center;
+/* 본문 큰 그림 */
+.content-picture{
+  display:block; max-width:1200px; margin:1.5rem auto;
+}
+.content-picture img{
+  display:block; width:100%; height:auto;
+  object-fit:contain; object-position:center;
+  transform:none !important;
 }
 
-/* ==============================
-   (선택) 가독성 보정: 큰 글씨가 카드 경계에 딱 붙어 보이지 않게 패딩 보정
-   ============================== */
-.card .card-body { padding: 1rem 1.25rem; }
+/* Soft Media Box (테크 스타일 재사용) */
+.media-box{
+  background:#fff; border:1px solid #eee; border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+  padding: clamp(12px, 1.2vw, 18px);
+}
+.media-box img{
+  display:block; width:100%; height:auto; border-radius:12px;
+}
+/* About의 우측 이미지 카드 간격 */
+.split-media .media-box{ margin-top:.5rem; }
+@media (max-width:992px){ .split-media .media-box{ margin-top:1rem; } }
 
-/* ===== Full-viewport Hero ===== */
-:root{
-  /* 이미 있으나, 숫자가 다르면 네비 실제 높이에 맞춰 주세요 */
-  --nav-h: 64px;
+/* 모바일(그리고 작은 태블릿)에서 이미지 좀 더 크게 */
+@media (max-width:1280px){
+  .tech-visual img,
+  .content-picture img{
+    width:100%; max-width:none; margin:0 auto;
+  }
+  .container{ padding-left:.75rem; padding-right:.75rem; }
+  .tech-visual{ margin-left:-.75rem; margin-right:-.75rem; }
 }
 
-/* 화면 한 뷰포트에 딱 맞는 히어로 섹션 (네비 높이 차감) */
-.hero{
-  height: calc(100vh - var(--nav-h));
-  min-height: 520px;               /* 너무 낮아지는 모바일 대비(원하면 조정/삭제) */
-  margin: 0;
-  padding: 0;
-  box-shadow: 0 1px 0 rgba(0,0,0,.06);
+/* ============================================================
+   Reveal (fade-up)
+   ============================================================ */
+.reveal{ opacity:0; transform:translateY(10px); transition:all .5s ease; }
+.reveal.show{ opacity:1; transform:none; }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+footer{ background:#f7f7f7; padding:2rem 1.25rem; text-align:center; color:#666; }
+
+/* ============================================================
+   Contact
+   ============================================================ */
+.contact-page{ max-width:720px; margin:2rem auto; padding:0 1.25rem; text-align:center; }
+.contact-form{ display:flex; flex-direction:column; gap:1rem; margin-top:1rem; }
+.contact-form input, .contact-form textarea, .contact-form select{
+  width:100%; padding:.8rem; border:1px solid #ccc; border-radius:8px; font-size:1rem; background:#fff;
+}
+.contact-form textarea{ min-height:160px; resize:vertical; }
+.contact-form label{ text-align:left; color:#333; font-weight:600; }
+
+/* small helpers */
+.rounded{ border-radius:14px; overflow:hidden; }
+.shadow{ box-shadow:0 8px 20px rgba(0,0,0,.06); }
+.agree{ font-size:.95rem; color:#555; }
+
+/* ===== Modal — 안정화 버전 ===== */
+.modal{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;                   /* 다른 요소 위 */
+  display: none;                   /* 기본 숨김 */
+  align-items: center;             /* 중앙 정렬 (flex-end → center) */
+  justify-content: center;
+  background: rgba(0,0,0,.45);
+  padding: 1rem;
 }
 
-/* picture와 이미지가 hero 높이를 100% 채우도록 */
-.hero-picture{
-  display:block;
-  width:100%;
-  height:100%;
-}
-.hero-picture img{
-  width:100%;
-  height:100%;
-  object-fit: cover;               /* 꽉 채우고 남는 부분은 자연스럽게 크롭 */
-  object-position: center;         /* 크롭 기준 (필요 시 right/left 등으로 조정) */
+.modal.active{ display: flex; }
+
+.modal-card{
+  width: min(960px, 96vw);
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.25);
+  overflow: hidden;                /* 헤더/본문 경계 깔끔하게 */
+  display: flex;
+  flex-direction: column;
 }
 
-/* PC에서 한 화면 꽉 채우기를 더 강하게 하고 싶다면(선택) */
-@media (min-width: 1200px){
-  .hero{ min-height: 680px; }
+.modal-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  padding: .9rem 1rem;
+  font-weight: 700;
+  border-bottom: 1px solid #eee;
+  background: #fff;
 }
 
-/* 히어로 바로 다음 섹션과 간격 정돈 (필요시) */
-.section, .band{ scroll-margin-top: calc(var(--nav-h) + 12px); }
-
-/* 배너 래퍼가 인라인 라인박스를 만들어 공백이 생기는 문제 방지 */
-.hero { 
-  margin: 0; 
-  padding: 0; 
-  line-height: 0;          /* inline 라인박스 제거 */
+.modal-close{
+  border: 0;
+  background: #f4f4f4;
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-/* picture 기본이 inline → block으로 고정, 라인박스 제거 */
-.hero-picture{
-  display:block;
-  width:100%;
-  line-height:0;
+.modal-body{
+  overflow: auto;                  /* 내용 스크롤 */
+  padding: 1rem;
 }
 
-/* 배너 이미지: 레이아웃 참여 보장 + 크롭 없이 꽉 차게 보이도록 */
-.hero-picture img{
-  display:block;
-  width:100%;
-  height:auto;
-  object-fit: cover;        /* 모바일에서 여백 생김 방지(크롭 최소화) */
-  object-position: center;
-  content-visibility: visible !important;  /* 높이 계산 꼬임 방지 */
+/* 모달 내부 이미지 안전 규칙 */
+.modal-body img{
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(90vh - 64px);   /* 헤더 높이 제외 */
+  object-fit: contain;
 }
 
-/* 혹시 이전에 추가한 전역 규칙이 영향을 주는 경우 무효화 */
-img[loading="lazy"]{
-  content-visibility: auto;
+/* 혹시 남아있을 수 있는 이전 규칙 무력화 */
+.modal-body img,
+.modal-body *{
+  transform: none !important;
+  position: relative !important;
 }
-.hero picture img[loading="lazy"]{
-  content-visibility: visible !important;
-}
+body.modal-open{ overflow: hidden; }
 
-/* 섹션 기본 여백은 정상적으로 유지 */
-.section{ padding: 3rem 0; }
-
-.hero, .hero-picture, .hero-picture img { 
-  height:auto !important; 
-  min-height:0 !important; 
-}
+/* style.css 맨 아래에 */
+.prod-card { scroll-margin-top: 80px; } /* 헤더 높이에 맞춰 조정 */

@@ -107,7 +107,7 @@ function initProductModal(){
     modal.setAttribute('aria-hidden','true');
     document.body.classList.remove('modal-open');
     imgEl.src = '';
-    if (!fromPop && history.state && history.state.__j_modal){ try{ history.back(); }catch{} }
+    //if (!fromPop && history.state && history.state.__j_modal){ try{ history.back(); }catch{} }
     card.style.transition = 'transform .2s'; card.style.transform = 'translateY(0)';
     modal.style.background = 'rgba(0,0,0,.45)';
   };
@@ -181,10 +181,16 @@ function autoOpenProductDetailFromQuery(){
   const code = (params.get('product') || '').toUpperCase(); // 'M' or 'H'
   if (!code) return;
 
+  // 대상 버튼/카드 찾기
   const btn = Array.from(document.querySelectorAll('[data-modal-title]'))
               .find(b => (b.dataset.modalTitle || '').toUpperCase().endsWith(' ' + code));
   if (!btn) return;
 
+  // ✨ 카드 위치로 먼저 스크롤 (고정 헤더 고려해 center가 안정적)
+  const card = btn.closest('.prod-card') || btn;
+  card.scrollIntoView({ behavior:'instant', block:'center' });
+
+  // 이미지 소스 고르기 (모바일/데스크톱) – 기존 로직 재사용
   const mql = window.matchMedia('(max-width: 768px)');
   const src = mql.matches
     ? (btn.dataset.modalSrcMobile || btn.dataset.modalSrcDesktop)
@@ -194,10 +200,10 @@ function autoOpenProductDetailFromQuery(){
   if (!modal) return;
 
   const imgEl   = modal.querySelector('img');
-  const titleEl = modal.querySelector('.modal-title');
+  const titleEl = modal.querySelector('.modal-title'); // 이미 initProductModal에서 기대하는 클래스명:contentReference[oaicite:2]{index=2}
 
   imgEl.src = src;
-  titleEl.textContent = btn.dataset.modalTitle || '';
+  titleEl && (titleEl.textContent = btn.dataset.modalTitle || '');
   modal.classList.add('active');
   modal.setAttribute('aria-hidden','false');
   document.body.classList.add('modal-open');

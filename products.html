@@ -87,14 +87,17 @@
     </section>
   </main>
 
-  <!-- Modal (기존 include.js가 제어) -->
+  <!-- Product Modal -->
   <div class="modal" id="productModal" aria-hidden="true">
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card" role="dialog" aria-modal="true">
       <div class="modal-head" data-modal-drag-handle>
-        <strong class="modal-title" id="modalTitle">Product</strong>
-        <button class="modal-close" aria-label="Close">✕</button>
+        <strong class="modal-title" id="productModalTitle">Product</strong>
+        <button class="modal-close" type="button" aria-label="Close">X</button>
       </div>
-      <img src="" alt="Product detail" width="2011" height="2048">
+      <div class="modal-body">
+        <!-- 동적으로 이미지/텍스트 들어옴 -->
+        <img src="" alt="Product detail">
+      </div>
     </div>
   </div>
 
@@ -110,3 +113,4 @@
   <div data-include="footer"></div>
 </body>
 </html>
+
