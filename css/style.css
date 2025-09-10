@@ -558,3 +558,45 @@ body.modal-open{ overflow: hidden; }
     aspect-ratio: auto !important;
   }
 }
+
+/* 1) 스마트폰/태블릿 '가로모드' 전용 보정
+   - 터치 디바이스만(hover:none & pointer:coarse)
+   - 기존 모바일/데스크탑 레이아웃에는 영향 없음 */
+@media (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  .hero.hero--blend{
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 0 12px !important;   /* 배너 뒤 컨텐츠와 간격만 살짝 */
+    background: none !important;   /* 배경 때문에 생기는 여백 방지 */
+  }
+  .hero.hero--blend::before,
+  .hero.hero--blend::after{
+    content: none !important;
+    display: none !important;
+  }
+  .hero.hero--blend .hero-picture{ display:block !important; line-height:0; }
+  .hero.hero--blend .hero-picture img{
+    display:block !important;
+    width:100% !important;
+    height:auto !important;
+    max-height: calc(100vh - 56px); /* 상단 헤더 높이만큼 여유(필요시 조정) */
+    object-fit: contain !important;  /* 브랜드 이미지 잘림 방지 */
+  }
+}
+
+/* 2) '세로형 모니터(데스크탑 포트레이트)' 보정
+   - 일반 데스크탑(1025px 이상) + orientation:portrait에서만 적용 */
+@media (min-width: 1025px) and (orientation: portrait) {
+  .hero.hero--blend{
+    padding: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+  .hero.hero--blend .hero-picture img{
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important; /* 세로 모니터에서도 잘림 없이 */
+    max-height: 80vh;               /* 화면 내 적정 크기 유지 */
+  }
+}
