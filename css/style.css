@@ -409,3 +409,23 @@ body.modal-open{ overflow: hidden; }
 /* 제품 카드 중앙정렬 & 불릿 숨김(가이드) */
 .prod-card .prod-body{ text-align:center !important; }
 .prod-card .prod-body .prod-bullets{ display:none !important; }
+
+
+/* === HERO: 이미지 배너는 절대 자르지 않기 === */
+.hero.hero--image-only{
+  padding:0 !important;
+  margin:0 !important;
+  min-height:0 !important;
+  background:none !important;
+  overflow:visible !important;
+}
+.hero.hero--image-only .hero-picture{ display:block; line-height:0; }
+.hero.hero--image-only .hero-picture img{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit: contain !important; /* cover를 무력화 */
+}
+
+/* 혹시 다른 규칙에서 cover/고정높이를 강제하면 이것들이 이기도록 */
+.hero img{ object-fit: contain !important; height:auto !important; }
