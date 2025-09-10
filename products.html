@@ -3,105 +3,81 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Products | Julieta</title>
-  <meta name="description" content="Explore Julieta dermal filler line — M and H." />
+  <title>Products – Julieta</title>
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/include.js" defer></script>
 </head>
 <body>
+  <!-- Header -->
   <div data-include="header"></div>
 
-  <!-- Top banner -->
-  <div class="section-banner">
-    <picture>
+  <!-- ===== Hero (배너: 여백 0, 이미지만) ===== -->
+  <section class="hero hero--image-only">
+    <picture class="hero-picture">
       <source srcset="images/mobile-products-banner.jpg" media="(max-width: 768px)">
-      <img src="images/products-banner.jpg"
-           alt="Julieta products banner"
-           width="2048" height="683" loading="lazy" decoding="async">
+      <img src="images/products-banner.jpg" alt="PRODUCTS banner">
     </picture>
-  </div>
+  </section>
 
-  <main class="container">
-    <section>
-      <h1 class="section-title">Products</h1>
-      <p class="section-sub">Meet Julieta M and Julieta H.</p>
+  <!-- ===== Products ===== -->
+  <section class="container section">
+    <h2 class="section-title">Products</h2>
+    <p class="section-sub">Meet Julieta M and Julieta H.</p>
 
-      <!-- New product cards -->
-      <div class="prod-grid">
-        <!-- Julieta M -->
-        <article class="prod-card">
-          <div class="prod-media"
-              role="button" tabindex="0"
-              aria-label="Open detail: Julieta M"
+    <div class="prod-grid">
+      <!-- Julieta M -->
+      <article class="prod-card reveal">
+        <div class="prod-media">
+          <img src="images/product01_M.png" alt="Julieta M package" loading="lazy" decoding="async">
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-name">Julieta M</h3>
+          <p class="prod-copy">Deep skin areas. Natural yet defined results.</p>
+          <ul class="prod-bullets">
+            <li>Cross-linked HA 24 mg/mL</li>
+            <li>Cheekbone, marionette lines, mentum</li>
+          </ul>
+          <div class="prod-cta">
+            <button
+              type="button"
+              class="btn btn--lg"
               data-modal-title="Julieta M"
               data-modal-src-desktop="images/products-m-detail-page.jpg"
               data-modal-src-mobile="images/mobile-products-m-detail-page.jpg">
-            <img src="images/product01_M.png" alt="Julieta M package">
+              View Detail
+            </button>
           </div>
-          <div class="prod-body">
-            <h3 class="prod-name">Julieta M</h3>
-            <p class="prod-copy">Deep skin areas. Natural yet defined results.</p>
-            <ul class="prod-bullets">
-              <li>Cross-linked HA 24 mg/mL</li>
-              <li>Cheekbone, marionette lines, mentum</li>
-            </ul>
-            <div class="prod-cta">
-              <button class="btn btn--lg"
-                data-modal-title="Julieta M"
-                data-modal-src-desktop="images/products-m-detail-page.jpg"
-                data-modal-src-mobile="images/mobile-products-m-detail-page.jpg">
-                View Detail
-              </button>
-            </div>
-          </div>
-        </article>
+        </div>
+      </article>
 
-        <!-- Julieta H -->
-        <article class="prod-card">
-          <div class="prod-media"
-              role="button" tabindex="0"
-              aria-label="Open detail: Julieta H"
+      <!-- Julieta H -->
+      <article class="prod-card reveal">
+        <div class="prod-media">
+          <img src="images/product02_H.png" alt="Julieta H package" loading="lazy" decoding="async">
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-name">Julieta H</h3>
+          <p class="prod-copy">Volume areas. High stability &amp; viscosity.</p>
+          <ul class="prod-bullets">
+            <li>Cross-linked HA 24 mg/mL</li>
+            <li>Chest, butt, thigh</li>
+          </ul>
+          <div class="prod-cta">
+            <button
+              type="button"
+              class="btn btn--lg"
               data-modal-title="Julieta H"
               data-modal-src-desktop="images/products-h-detail-page.jpg"
               data-modal-src-mobile="images/mobile-products-h-detail-page.jpg">
-            <img src="images/product02_H.png" alt="Julieta H package">
+              View Detail
+            </button>
           </div>
-          <div class="prod-body">
-            <h3 class="prod-name">Julieta H</h3>
-            <p class="prod-copy">Volume areas. High stability &amp; viscosity.</p>
-            <ul class="prod-bullets">
-              <li>Cross-linked HA 24 mg/mL</li>
-              <li>Chest, butt, thigh</li>
-            </ul>
-            <div class="prod-cta">
-              <button class="btn btn--lg"
-                data-modal-title="Julieta H"
-                data-modal-src-desktop="images/products-h-detail-page.jpg"
-                data-modal-src-mobile="images/mobile-products-h-detail-page.jpg">
-                View Detail
-              </button>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <!-- Product Modal -->
-  <div class="modal" id="productModal" aria-hidden="true">
-    <div class="modal-card" role="dialog" aria-modal="true">
-      <div class="modal-head" data-modal-drag-handle>
-        <strong class="modal-title" id="productModalTitle">Product</strong>
-        <button class="modal-close" type="button" aria-label="Close">X</button>
-      </div>
-      <div class="modal-body">
-        <!-- 동적으로 이미지/텍스트 들어옴 -->
-        <img src="" alt="Product detail">
-      </div>
+        </div>
+      </article>
     </div>
-  </div>
+  </section>
 
-  <!-- CTA band -->
+  <!-- ===== Contact CTA ===== -->
   <section class="band band--dark">
     <div class="container" style="text-align:center">
       <h2 class="section-title">Need more information?</h2>
@@ -110,7 +86,22 @@
     </div>
   </section>
 
+  <!-- ===== Modal ===== -->
+  <div id="productModal" class="modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="productModalTitle">
+      <div class="modal-header" data-modal-drag-handle>
+        <h3 class="modal-title" id="productModalTitle">Julieta</h3>
+        <button class="modal-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-media">
+          <img src="" alt="Product detail" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <div data-include="footer"></div>
 </body>
 </html>
-

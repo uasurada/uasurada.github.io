@@ -3,90 +3,40 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About | Julieta</title>
-  <meta name="description" content="About Julieta — philosophy, quality and safety-first manufacturing." />
+  <title>About – Julieta</title>
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/include.js" defer></script>
 </head>
 <body>
+  <!-- Header -->
   <div data-include="header"></div>
 
-    <!-- ===== Page Banner (About) ===== -->
-      <div class="section-banner">
-        <picture>
-          <source srcset="images/mobile-julieta-banner.jpg" media="(max-width: 768px)">
-          <img src="images/julieta-banner.jpg"
-              alt="About Julieta banner"
-              width="2048" height="683" loading="lazy" decoding="async">
-        </picture>
-      </div>
+  <!-- ===== Hero (배너) ===== -->
+  <section class="hero hero--image-only">
+    <picture class="hero-picture">
+      <source srcset="images/mobile-julieta-banner.jpg" media="(max-width: 768px)">
+      <img src="images/julieta-banner.jpg" alt="JULIETA banner">
+    </picture>
+  </section>
 
-      <main>
-    <!-- Split section: large readable text + supporting visual -->
-    <section class="band">
-      <div class="container split">
-        <div class="split-text">
-          <h2 class="section-title">Our Vision</h2>
-          <p class="section-lead">
-            Our philosophy merges medical precision with artistic vision to create results that are both
-            safe and sophisticated. For partners, clinics, hospitals, and distributors, Julieta delivers a
-            powerful value proposition—meeting the highest safety and efficacy requirements while
-            elevating patient trust and strengthening clinic reputation.
-          </p>
-          <p>
-            By positioning Julieta as a premium choice, our partners gain a competitive edge in markets
-            where patients demand both reliability and elegance.
-          </p>
-        </div>
+  <!-- ===== About 전체 이미지로 대체 ===== -->
+  <section class="container section" style="text-align:center">
+    <picture>
+      <source srcset="images/mobile-julieta-page.jpg" media="(max-width: 768px)">
+      <img src="images/julieta-page.jpg" alt="About Julieta" style="max-width:100%;height:auto">
+    </picture>
+  </section>
 
-        <!-- 이미지 영역: Tech 페이지와 동일한 박스형 프레임 적용 -->
-        <div class="split-media reveal">
-          <figure class="media-box">
-            <picture>
-              <source srcset="images/mobile-julieta-page.jpg" media="(max-width: 768px)">
-              <img
-                src="images/julieta-page.jpg"
-                alt="Julieta overview"
-                width="2011" height="2048"
-                loading="lazy" decoding="async" />
-            </picture>
-          </figure>
-        </div>
-      </div>
-    </section>
+  <!-- ===== Contact CTA ===== -->
+  <section class="band band--dark">
+    <div class="container" style="text-align:center">
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="section-sub">For partnerships, distribution, or general inquiries</p>
+      <a class="btn btn--lg" href="contact.html">Contact Us</a>
+    </div>
+  </section>
 
-    <!-- Philosophy: dense 3-up feature cards -->
-    <section class="band band--alt">
-      <div class="container">
-        <h2 class="section-title">Our Philosophy</h2>
-        <p class="section-sub">Safety-first manufacturing, precision, and uncompromising standards—built for outcomes that look natural and last.</p>
-
-        <div class="features-grid">
-          <article class="card card--dense">
-            <div class="card-body">
-              <h3 class="feature-title">High-Purity Hyaluronic Acid</h3>
-              <p>Only extra-pure injection-grade HA and top-grade raw materials are used to ensure consistent performance.</p>
-            </div>
-          </article>
-
-          <article class="card card--dense">
-            <div class="card-body">
-              <h3 class="feature-title">Safe & Certified Manufacturing</h3>
-              <p>Produced in strict compliance with international standards and quality systems for patient safety.</p>
-            </div>
-          </article>
-
-          <article class="card card--dense">
-            <div class="card-body">
-              <h3 class="feature-title">Refined, Natural Results</h3>
-              <p>Balanced rheology designed to deliver smooth, stable shaping with results that feel authentic.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-  </main>
-
+  <!-- Footer -->
   <div data-include="footer"></div>
 </body>
 </html>

@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Julieta</title>
+  <!-- 경로 수정: css/ → 루트 -->
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/include.js" defer></script>
 </head>
@@ -12,10 +13,7 @@
   <div data-include="header"></div>
 
   <!-- ===== Hero (배너) ===== -->
-  <section
-    class="hero hero--blend"
-    style="--hero-bg: url('images/banner.jpg');"
-  >
+  <section class="hero hero--blend" style="--hero-bg: url('images/banner.jpg');">
     <picture class="hero-picture">
       <source srcset="images/mobile-banner.jpg" media="(max-width: 768px)">
       <img src="images/banner.jpg" alt="Julieta main banner">
@@ -36,6 +34,7 @@
         <div class="prod-body">
           <h3 class="prod-name">Julieta M</h3>
           <p class="prod-copy">Deep skin areas. Natural yet defined results.</p>
+          <!-- 불릿은 유지하지만 CSS에서 숨김 처리 -->
           <ul class="prod-bullets">
             <li>Cross-linked HA 24 mg/mL</li>
             <li>Cheekbone, marionette lines, mentum</li>
@@ -103,27 +102,33 @@
         </p>
         <div class="hero-cta">
           <a class="btn btn--lg" href="about.html">Learn More</a>
-          <a class="btn btn--lg btn--outline" href="technology.html">Our Technology</a>
+          <!-- 가이드에 맞게 버튼 유지 -->
+          <a class="btn btn--lg btn--outline btn-tech-secondary" href="technology.html">Our Technology</a>
         </div>
       </div>
 
-      <!-- 필요 시 일관성을 위해 media-box로 바꿔도 됩니다 -->
       <div class="split-media reveal" aria-hidden="true">
         <div class="media-box">
-          <img src="images/julieta-page.jpg" alt="Julieta overview" loading="lazy" decoding="async">
+          <picture>
+            <source srcset="images/mobile-julieta-mainpage.jpg" media="(max-width: 768px)">
+            <img src="images/julieta-page.jpg" alt="Julieta overview" loading="lazy" decoding="async">
+          </picture>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== Technology teaser (수정됨: media-box 사용) ===== -->
+  <!-- ===== Technology teaser ===== -->
   <section class="container section">
     <div class="grid cols-2">
       <div class="split-media reveal">
         <div class="media-box">
-          <img src="images/technology-page.jpg"
-               alt="Julieta Technology"
-               loading="lazy" decoding="async">
+          <picture>
+            <source srcset="images/mobile-technology-mainpage.jpg" media="(max-width: 768px)">
+            <img src="images/technology-page.jpg"
+                 alt="Julieta Technology"
+                 loading="lazy" decoding="async">
+          </picture>
         </div>
       </div>
       <div class="reveal" style="display:flex;flex-direction:column;justify-content:center;">

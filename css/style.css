@@ -61,6 +61,7 @@ picture{ display:block; line-height:0; }
   .nav-menu a{ padding:.75rem .25rem; }
 }
 
+
 /* ============================================================
    HERO (PC: 이미지 전체 보임 contain + 좌우 블렌드 / Mobile: cover)
    ============================================================ */
@@ -373,3 +374,38 @@ body.modal-open{ overflow: hidden; }
   box-shadow:0 6px 18px rgba(0,0,0,.2);
 }
 .fab-whatsapp:hover{ transform:translateY(-2px); }
+
+/* === PATCH: product cards center + remove bullets / mobile secondary btn === */
+.prod-card .prod-body{
+  text-align: center !important;
+}
+.prod-card .prod-body .prod-bullets{
+  display: none !important;
+}
+
+/* 모바일에서 About의 보조 버튼(Our Technology) 숨김 */
+@media (max-width: 768px){
+  .btn-tech-secondary{ display: none !important; }
+}
+
+
+/* === hero : 이미지 배너만 쓰는 경우 공백 제거 === */
+.hero.hero--image-only{
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  background: none !important;
+}
+.hero.hero--image-only .hero-picture{
+  display:block;
+  line-height:0;
+}
+.hero.hero--image-only .hero-picture img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+/* 제품 카드 중앙정렬 & 불릿 숨김(가이드) */
+.prod-card .prod-body{ text-align:center !important; }
+.prod-card .prod-body .prod-bullets{ display:none !important; }

@@ -3,37 +3,76 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Technology | Julieta</title>
-  <meta name="description" content="Julieta technology — BVS concept for smooth, natural and lasting results.">
+  <title>Technology – Julieta</title>
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/include.js" defer></script>
 </head>
 <body>
+  <!-- Header -->
   <div data-include="header"></div>
 
-  <div class="section-banner">
-    <picture>
+  <!-- ===== Hero (배너: 이미지 전용, 여백 0) ===== -->
+  <section class="hero hero--image-only">
+    <picture class="hero-picture">
       <source srcset="images/mobile-technology-banner.jpg" media="(max-width: 768px)">
-      <img src="images/technology-banner.jpg"
-           alt="Technology banner"
-           width="2048" height="683" loading="lazy" decoding="async">
+      <img src="images/technology-banner.jpg" alt="TECHNOLOGY banner">
     </picture>
-  </div>
+  </section>
 
-  <main class="container">
-    <section>
-      <h2 class="section-title reveal">Technology</h2>
-      <p class="section-sub reveal">Smooth, natural and lasting results with Julieta’s BVS concept.</p>
+  <!-- ===== Section 1: Creating Perfect Balance with BVS™ technology ===== -->
+  <section class="container section" style="text-align:center">
+    <picture>
+      <source srcset="images/mobile-technology-page.jpg" media="(max-width: 768px)">
+      <img src="images/technology-page.jpg" alt="Creating Perfect Balance with BVS technology"
+           style="max-width:100%;height:auto">
+    </picture>
+  </section>
 
-      <picture class="content-picture rounded shadow reveal">
-        <source srcset="images/mobile-technology-page.jpg" media="(max-width: 768px)">
-        <img src="images/technology-page.jpg"
-             alt="Julieta technology overview with BVS concept visuals"
-             width="2011" height="2056" loading="lazy" decoding="async">
-      </picture>
-    </section>
-  </main>
+  <!-- ===== Section 2: Precision Solutions for Every Patient (서브 비주얼) ===== -->
+  <section class="container section" style="text-align:center">
+    <picture>
+      <source srcset="images/mobile-technology-mainpage.jpg" media="(max-width: 768px)">
+      <img src="images/technology-mainpage.jpg" alt="Precision Solutions for Every Patient"
+           style="max-width:100%;height:auto">
+    </picture>
+  </section>
 
+  <!-- ===== 추가: 하단 3개 카드 ===== -->
+  <section class="band band--alt">
+    <div class="container section">
+      <div class="grid cols-3">
+        <div class="card card--dense">
+          <div class="card-body">
+            <h3 class="section-title" style="font-size:1.1rem;margin:.25rem 0">High-Purity Hyaluronic Acid</h3>
+            <p class="section-sub" style="margin:0;color:#444">Only injection-grade HA and top-grade raw materials.</p>
+          </div>
+        </div>
+        <div class="card card--dense">
+          <div class="card-body">
+            <h3 class="section-title" style="font-size:1.1rem;margin:.25rem 0">Safe &amp; Certified Manufacturing</h3>
+            <p class="section-sub" style="margin:0;color:#444">Produced to strict international standards and quality systems.</p>
+          </div>
+        </div>
+        <div class="card card--dense">
+          <div class="card-body">
+            <h3 class="section-title" style="font-size:1.1rem;margin:.25rem 0">Refined, Natural Results</h3>
+            <p class="section-sub" style="margin:0;color:#444">Balanced rheology designed for smooth, lasting outcomes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Need more information? (CTA) ===== -->
+  <section class="band band--dark">
+    <div class="container" style="text-align:center">
+      <h2 class="section-title">Need more information?</h2>
+      <p class="section-sub">Get technical specs or partnership details.</p>
+      <a class="btn btn--lg" href="contact.html">Contact us</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <div data-include="footer"></div>
 </body>
 </html>
