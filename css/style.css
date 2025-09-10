@@ -429,3 +429,132 @@ body.modal-open{ overflow: hidden; }
 
 /* 혹시 다른 규칙에서 cover/고정높이를 강제하면 이것들이 이기도록 */
 .hero img{ object-fit: contain !important; height:auto !important; }
+
+
+/* ===== Product Modal header tidy up ===== */
+#productModal .modal-card{ position: relative; }
+
+/* 헤더(드래그 핸들) — 가운데 타이틀, 우측 X */
+#productModal [data-modal-drag-handle]{
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;  /* 제목 중앙 */
+  padding: 12px 56px;       /* 우측 X 공간 확보 */
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+/* 타이틀 */
+#productModal .modal-title{
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #222;
+  line-height: 1.2;
+  text-align: center;
+  pointer-events: none; /* 드래그 시 텍스트 선택 방지 */
+}
+
+/* 모달 헤더를 패치용 기준으로 */
+#productModal [data-modal-drag-handle]{
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 56px;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+/* 보더-겹침 보정: 헤더 보더 위에 흰색 원형 패치 */
+#productModal [data-modal-drag-handle]::after{
+  content:"";
+  position:absolute;
+  right: 10px;     /* 버튼 위치와 맞춰 조정 */
+  top: 6px;        /* 버튼보다 약간 위 */
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background:#fff; /* 보더를 가려주는 흰색 패치 */
+  z-index: 2;      /* 보더 위, 버튼 아래 */
+}
+
+/* 닫기 버튼: 패치 위에 올라오도록 z-index ↑, 약간 안쪽으로 */
+#productModal .modal-close{
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 3;                 /* 패치 위에 */
+  box-shadow: 0 1px 2px rgba(0,0,0,.06);
+  background-clip: padding-box;
+}
+
+/* 모바일 폰 사이즈 최적화 */
+@media (max-width: 768px){
+  #productModal [data-modal-drag-handle]{ padding:10px 52px; }
+  #productModal [data-modal-drag-handle]::after{
+    right: 8px; top: 5px; width: 36px; height: 36px;
+  }
+  #productModal .modal-close{ right: 10px; top: 7px; width: 34px; height: 34px; }
+}
+
+/* iOS 안전영역 대응 */
+@supports (padding: max(0px)){
+  #productModal [data-modal-drag-handle]{
+    padding-right: max(52px, calc(env(safe-area-inset-right) + 36px));
+  }
+  #productModal [data-modal-drag-handle]::after{
+    right: max(8px, env(safe-area-inset-right));
+  }
+  #productModal .modal-close{
+    right: max(10px, env(safe-area-inset-right));
+  }
+}
+
+
+/* ---------- 모바일: 히어로(배너) 공백 제거 ---------- */
+@media (max-width: 768px){
+
+  /* 배너 컨테이너의 높이/여백/배경 강제 해제 */
+  .hero.hero--blend{
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 0 12px !important; /* 배너와 다음 섹션 사이 간격만 살짝 */
+    background: none !important; /* 배경 이미지가 여백을 만들면 제거 */
+  }
+
+  /* 장식용 의사요소가 공간을 차지하면 제거 */
+  .hero.hero--blend::before,
+  .hero.hero--blend::after{
+    content: none !important;
+    display: none !important;
+  }
+
+  /* 그림 자체만 자연 비율로 표시 */
+  .hero.hero--blend .hero-picture{ display:block !important; line-height:0; }
+  .hero.hero--blend .hero-picture img{
+    display:block !important;
+    width:100% !important;
+    height:auto !important;
+    object-fit: contain !important; /* 문구 보존(잘림 방지). cover면 cover로 교체 */
+    /* 혹시 이전에 aspect-ratio 고정했으면 자동으로 */
+    aspect-ratio: auto !important;
+  }
+}
